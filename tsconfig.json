@@ -12,7 +12,30 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      // Components
+      "@/common/*": ["components/common/*"],
+      "@/page/*": ["components/page/*"],
+
+      // Layouts
+      "@/layout/*": ["layouts/*"],
+
+      // Hooks
+      "@/hooks/*": ["hooks/*"],
+
+      // Lib
+      "@/redux/*": ["lib/redux/*"],
+
+      // Store
+      "@/store/*": ["store/*"],
+
+      // Styles
+      "@/styles/*": ["src/styles/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
