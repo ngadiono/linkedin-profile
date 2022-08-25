@@ -15,7 +15,7 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-import store from '../app/store';
+import store from '@/store/store';
 
 const App = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;

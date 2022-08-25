@@ -8,8 +8,7 @@ const IndexPage: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Redux Toolkit</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Sign In</title>
       </Head>
       <header className={styles.header}>
         <img src="/logo.svg" className={styles.logo} alt="logo" />

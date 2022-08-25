@@ -18,20 +18,17 @@
     "baseUrl": ".",
     "paths": {
       // Components
-      "@/common/*": ["components/common/*"],
-      "@/page/*": ["components/page/*"],
+      "@/common/*": ["src/components/common/*"],
+      "@/page/*": ["src/components/page/*"],
 
       // Layouts
-      "@/layout/*": ["layouts/*"],
+      "@/layouts/*": ["src/layouts/*"],
 
       // Hooks
-      "@/hooks/*": ["hooks/*"],
-
-      // Lib
-      "@/redux/*": ["lib/redux/*"],
+      "@/hooks/*": ["src/hooks/*"],
 
       // Store
-      "@/store/*": ["store/*"],
+      "@/store/*": ["src/store/*"],
 
       // Styles
       "@/styles/*": ["src/styles/*"]
