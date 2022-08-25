@@ -24,6 +24,9 @@
       // Layouts
       "@/layouts/*": ["src/layouts/*"],
 
+      // Pages
+      "@/pages/*": ["src/pages/*"],
+
       // Hooks
       "@/hooks/*": ["src/hooks/*"],
 

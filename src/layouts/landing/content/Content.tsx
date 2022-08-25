@@ -1,11 +1,12 @@
 import React from 'react';
+import Container from '@mui/material/Container';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const Content: React.FC<Props> = ({ children }) => {
-  return <>{children}</>;
+  return <Container>{children}</Container>;
 };
 
 export default Content;

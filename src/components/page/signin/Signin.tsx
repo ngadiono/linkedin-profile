@@ -89,7 +89,7 @@ const Signin: React.FC = () => {
                 helperText={formik.touched.password && formik.errors.password}
               />
             </Box>
-            <Button type="submit" variant="contained" size="large" fullWidth>
+            <Button type="submit" variant="contained" size="large" fullWidth disabled={loading}>
               {loading ? 'Loading...' : 'Sign In'}
             </Button>
           </CardSignin>
