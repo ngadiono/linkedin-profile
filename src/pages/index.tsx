@@ -12,7 +12,6 @@ const IndexPage: NextPage = () => {
         <title>LinkedIn Login, Sign in | LinkedIn</title>
       </Head>
       <Signin />
-      <h1>hahah</h1>
     </>
   );
 };

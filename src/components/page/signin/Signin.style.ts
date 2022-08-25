@@ -31,7 +31,7 @@ export const Content = styled.main`
   margin: 0 auto;
 `;
 
-export const CardSignin = styled.div`
+export const CardSignin = styled.form`
   width: 352px;
   -webkit-box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
   box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
