@@ -39,27 +39,27 @@ const Profile: React.FC = () => {
           </ProfileDesc>
         </Box>
       </CardProfile>
-      <CardSection title="About" add={false} showMore={false} view={false}>
+      <CardSection showMore={false}>
         <About />
         <Empty />
       </CardSection>
-      <CardSection title="Experience" showMoreTitle="6 experiences">
+      <CardSection showMoreTitle="6 experiences">
         <Experience />
         <Empty />
       </CardSection>
-      <CardSection title="Education" showMoreTitle="6 education">
+      <CardSection showMoreTitle="6 education">
         <Education />
         <Empty />
       </CardSection>
-      <CardSection title="Skills" showMoreTitle="6 skills">
+      <CardSection showMoreTitle="6 skills">
         <Skill />
         <Empty />
       </CardSection>
-      <CardSection title="Languages" showMoreTitle="6 languages">
+      <CardSection showMoreTitle="6 languages">
         <Language />
         <Empty />
       </CardSection>
-      <CardSection title="Organizations" showMoreTitle="6 organizations">
+      <CardSection showMoreTitle="6 organizations">
         <Organization />
         <Empty />
       </CardSection>

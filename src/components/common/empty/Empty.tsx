@@ -10,8 +10,10 @@ const Empty: React.FC = () => {
   return (
     <Wrapper>
       <div>
-        <SimCardAlertIcon sx={{ color: '#ffffffe6' }} />
-        <Typography variant="body1">No data yet</Typography>
+        <SimCardAlertIcon sx={{ color: '#ffffff99' }} />
+        <Typography variant="body1" sx={{ color: '#ffffff99' }}>
+          No data yet
+        </Typography>
       </div>
     </Wrapper>
   );
