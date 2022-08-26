@@ -13,7 +13,7 @@ const ProfilePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Ronaldo | LinkedIn</title>
+        <title>John Doe | LinkedIn</title>
       </Head>
       <Profile />
     </>

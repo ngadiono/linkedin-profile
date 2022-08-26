@@ -1,16 +1,70 @@
 // Vendors
-import type { ReactElement } from 'react';
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-// Layouts
-import Container from '@/layouts/landing/container/Container';
-import { NextPageWithLayout } from '../../../pages/_app';
+// Components
+import CardSection from '@/common/cardsection/CardSection';
+import Empty from '@/common/empty/Empty';
+import About from './about/About';
+import Education from './education/Education';
+import Experience from './experience/Experience';
+import Language from './language/Language';
+import Organization from './organization/Organization';
+import Skill from './skill/Skill';
 
-const Profile: NextPageWithLayout = () => {
-  return <p>haha</p>;
-};
+// Styles
+import { CardProfile, HeroImage, ProfileImage, ProfileDesc } from './Profile.style';
 
-Profile.getLayout = function getLayout(page: ReactElement) {
-  return <Container>{page}</Container>;
+const Profile: React.FC = () => {
+  return (
+    <>
+      <CardProfile>
+        <HeroImage />
+        <Box sx={{ marginTop: 'auto' }}>
+          <ProfileImage
+            alt="Remy Sharp"
+            src="https://media-exp1.licdn.com/dms/image/C5103AQGK3tKgTL_MOw/profile-displayphoto-shrink_200_200/0/1533869608104?e=1666828800&v=beta&t=unwVfRnIfJ_2uHYPP6g8AUehs9pN5Zme9iRp9Fq4ZK8"
+          />
+          <ProfileDesc>
+            <Typography variant="h5" gutterBottom>
+              john doe
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Sr. Frontend Developer at Google
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              25 Years old
+            </Typography>
+          </ProfileDesc>
+        </Box>
+      </CardProfile>
+      <CardSection title="About" add={false}>
+        <About />
+        <Empty />
+      </CardSection>
+      <CardSection title="Experience">
+        <Experience />
+        <Empty />
+      </CardSection>
+      <CardSection title="Education">
+        <Education />
+        <Empty />
+      </CardSection>
+      <CardSection title="Skills">
+        <Skill />
+        <Empty />
+      </CardSection>
+      <CardSection title="Languages">
+        <Language />
+        <Empty />
+      </CardSection>
+      <CardSection title="Organizations">
+        <Organization />
+        <Empty />
+      </CardSection>
+    </>
+  );
 };
 
 export default Profile;
