@@ -1,15 +1,12 @@
 // Vendors
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 
-export const Wrapper = styled.div`
-  display: flex;
-  margin-bottom: 10px;
-  h5 {
-    color: #ffffffe6;
-    flex-grow: 1;
-  }
-`;
+export const Wrapper = styled('div')({
+  display: 'flex',
+  marginBottom: '10px',
+  h5: { color: '#ffffffe6', flexGrow: 1 },
+});
 
 export const BootstrapDialog = styled(Dialog)(() => ({
   '& .MuiDialogContent-root': {

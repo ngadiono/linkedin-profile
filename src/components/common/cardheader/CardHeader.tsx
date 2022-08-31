@@ -1,5 +1,6 @@
 // Vendors
 import React from 'react';
+import { useRouter } from 'next/router';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -17,6 +18,8 @@ import { Wrapper, BootstrapDialog } from './CardHeader.style';
 interface Props {
   children?: React.ReactNode;
   title: string;
+  add?: boolean;
+  edit?: boolean;
 }
 
 interface DialogTitleProps {
@@ -49,7 +52,8 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-const CardHeader: React.FC<Props> = ({ title, children }) => {
+const CardHeader: React.FC<Props> = ({ title, children, add = true, edit = true }) => {
+  const router = useRouter();
   const [open, setOpen] = React.useState<boolean>(false);
 
   const handleClickOpen = () => {
@@ -58,20 +62,25 @@ const CardHeader: React.FC<Props> = ({ title, children }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <Wrapper>
         <Typography variant="h5">{title}</Typography>
-        <Tooltip title={`Add ${title}`}>
-          <IconButton onClick={handleClickOpen}>
-            <AddIcon sx={{ color: '#ffffffe6' }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title={`Edit ${title}`}>
-          <IconButton>
-            <EditIcon sx={{ color: '#ffffffe6' }} />
-          </IconButton>
-        </Tooltip>
+        {add && (
+          <Tooltip title={`Add ${title}`}>
+            <IconButton onClick={handleClickOpen}>
+              <AddIcon sx={{ color: '#ffffffe6' }} />
+            </IconButton>
+          </Tooltip>
+        )}
+        {edit && (
+          <Tooltip title={`Edit ${title}`}>
+            <IconButton onClick={() => (title === 'About' ? handleClickOpen() : router.push('/'))}>
+              <EditIcon sx={{ color: '#ffffffe6' }} />
+            </IconButton>
+          </Tooltip>
+        )}
       </Wrapper>
       <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>

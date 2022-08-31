@@ -1,13 +1,10 @@
 // Vendors
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 120px;
-  > div {
-    max-width: 100px;
-    text-align: center;
-  }
-`;
+export const Wrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '120px',
+  '> div': { maxWidth: '100px', textAlign: 'center' },
+});

@@ -11,7 +11,7 @@ const title: string = 'About';
 const About: React.FC = () => {
   return (
     <>
-      <CardHeader title="About"></CardHeader>
+      <CardHeader title="About" add={false} />
       <Typography variant="body1" sx={{ color: '#ffffffe6' }}>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam
         beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat

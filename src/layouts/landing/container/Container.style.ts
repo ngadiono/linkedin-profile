@@ -1,8 +1,8 @@
 // Vendors
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 
-export const Wrapper = styled.div`
-  background-color: #000000;
-  min-height: 100vh;
-  overflow-x: auto;
-`;
+export const Wrapper = styled('div')({
+  backgroundColor: '#000000',
+  minHeight: '100vh',
+  overflowX: 'auto',
+});
