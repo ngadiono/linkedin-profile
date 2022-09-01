@@ -11,20 +11,32 @@ import Typography from '@mui/material/Typography';
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
+import BtnAction from '@/common/btnaction/BtnAction';
 
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
+
+const title: string = 'Experience';
+const limitData: number = 4;
 
 const Experience: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
-    <CardSection showMoreTitle="6 experiences">
-      <CardHeader title="Experience"></CardHeader>
+    <CardSection
+      showMore={profile?.experiences.length > limitData}
+      showMoreTitle={`${profile?.experiences.length - limitData} ${title.toLowerCase()}s`}
+      empty={profile?.experiences.length === 0}
+    >
+      <CardHeader title="Experience">
+        <BtnAction title={title} type="add" />
+        <BtnAction title={title} type="edit" />
+      </CardHeader>
       {profile?.experiences.length > 0 && (
         <List>
-          {profile?.experiences.map(
-            ({ id, title, companyName, logo, location, description, startDate, endDate }, idx) => (
+          {profile?.experiences
+            .slice(0, limitData)
+            .map(({ id, title, companyName, logo, location, description, startDate, endDate }, idx) => (
               <div key={id}>
                 <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
                   <ListItemAvatar sx={{ marginRight: '10px' }}>
@@ -75,8 +87,7 @@ const Experience: React.FC = () => {
                   />
                 )}
               </div>
-            )
-          )}
+            ))}
         </List>
       )}
     </CardSection>

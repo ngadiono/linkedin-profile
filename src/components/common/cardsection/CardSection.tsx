@@ -15,16 +15,18 @@ interface Props {
   empty?: boolean;
 }
 
-const CardSection: React.FC<Props> = ({ children, showMore = true, showMoreTitle, empty = false }) => {
+const CardSection: React.FC<Props> = ({ children, showMore = false, showMoreTitle, empty = false }) => {
   return (
     <>
-      <Card showMore={showMore}>{children}</Card>
+      <Card showMore={showMore}>
+        {children}
+        {empty && <Empty />}
+      </Card>
       {showMore && (
         <ShowMore variant="contained" fullWidth>
           Show all {showMoreTitle} <ArrowRightAltIcon sx={{ marginLeft: '5px' }} />
         </ShowMore>
       )}
-      {empty && <Empty />}
     </>
   );
 };

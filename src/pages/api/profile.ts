@@ -32,6 +32,72 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
         startDate: '',
         endDate: '',
       },
+      {
+        id: '3b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
+      {
+        id: '4b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
+      {
+        id: '5b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
+      {
+        id: '6b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
+      {
+        id: '7b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
+      {
+        id: '8b',
+        title: 'Frontend Developer',
+        companyName: 'Facebook',
+        logo: '',
+        location: 'Yogyakarta Area, Yogyakarta, Indonesia',
+        description:
+          'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
+        startDate: '',
+        endDate: '',
+      },
     ],
     educations: [
       {
@@ -41,7 +107,7 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
         logo: '',
       },
     ],
-    skills: ['HTML', 'CSS'],
+    skills: ['HTML', 'CSS', 'Javascript', 'React', 'Redux', 'Next.js', 'Vue.js', 'Angular', 'Node.js'],
     languages: [
       {
         id: '1d',
@@ -49,7 +115,15 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
         proficiency: 'hahaha',
       },
     ],
-    organizations: [],
+    organizations: [
+      // {
+      //   id: '1e',
+      //   organizationName: 'hahah',
+      //   position: 'CEO',
+      //   startDate: '',
+      //   endDate: '',
+      // },
+    ],
   });
 };
 

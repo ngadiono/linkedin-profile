@@ -48,7 +48,7 @@ export class Auth {
 
       setTimeout(() => {
         this.user = {
-          name: 'Admin',
+          name: 'John Doe',
           email,
           token: 'dfasdfadsf.asdfasdf.afsdfasd',
         };

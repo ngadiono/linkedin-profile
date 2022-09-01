@@ -18,8 +18,6 @@ import { Wrapper, BootstrapDialog } from './CardHeader.style';
 interface Props {
   children?: React.ReactNode;
   title: string;
-  add?: boolean;
-  edit?: boolean;
 }
 
 interface DialogTitleProps {
@@ -52,7 +50,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-const CardHeader: React.FC<Props> = ({ title, children, add = true, edit = true }) => {
+const CardHeader: React.FC<Props> = ({ title, children }) => {
   const router = useRouter();
   const [open, setOpen] = React.useState<boolean>(false);
 
@@ -67,22 +65,9 @@ const CardHeader: React.FC<Props> = ({ title, children, add = true, edit = true 
     <>
       <Wrapper>
         <Typography variant="h5">{title}</Typography>
-        {add && (
-          <Tooltip title={`Add ${title}`}>
-            <IconButton onClick={handleClickOpen}>
-              <AddIcon sx={{ color: '#ffffffe6' }} />
-            </IconButton>
-          </Tooltip>
-        )}
-        {edit && (
-          <Tooltip title={`Edit ${title}`}>
-            <IconButton onClick={() => (title === 'About' ? handleClickOpen() : router.push('/'))}>
-              <EditIcon sx={{ color: '#ffffffe6' }} />
-            </IconButton>
-          </Tooltip>
-        )}
+        {children}
       </Wrapper>
-      <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      {/* <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
           Modal title
         </BootstrapDialogTitle>
@@ -92,7 +77,7 @@ const CardHeader: React.FC<Props> = ({ title, children, add = true, edit = true 
             Save changes
           </Button>
         </DialogActions>
-      </BootstrapDialog>
+      </BootstrapDialog> */}
     </>
   );
 };

@@ -10,19 +10,30 @@ import Typography from '@mui/material/Typography';
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
+import BtnAction from '@/common/btnaction/BtnAction';
 
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
+
+const title: string = 'Education';
+const limitData: number = 4;
 
 const Education: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
-    <CardSection showMoreTitle="6 education">
-      <CardHeader title="Education"></CardHeader>
+    <CardSection
+      showMore={profile?.educations.length > limitData}
+      showMoreTitle={`${profile?.educations.length - limitData} ${title.toLowerCase()}s`}
+      empty={profile?.educations.length === 0}
+    >
+      <CardHeader title="Education">
+        <BtnAction title={title} type="add" />
+        <BtnAction title={title} type="edit" />
+      </CardHeader>
       {profile?.educations.length > 0 && (
         <List>
-          {profile?.educations.map(({ id, title, companyName, logo }, idx) => (
+          {profile?.educations.slice(0, limitData).map(({ id, title, companyName, logo }, idx) => (
             <div key={id}>
               <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
                 <ListItemAvatar sx={{ marginRight: '10px' }}>

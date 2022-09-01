@@ -7,24 +7,43 @@ import Typography from '@mui/material/Typography';
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
+import BtnAction from '@/common/btnaction/BtnAction';
+
+// Hooks
+import { useAppSelector } from '@/hooks/useReactRedux';
+
+const title: string = 'Organization';
+const limitData: number = 4;
 
 const Organization: React.FC = () => {
+  const profile = useAppSelector((state) => state.module.profile.detail);
   return (
-    <CardSection showMoreTitle="6 organizations">
-      <CardHeader title="Organizations"></CardHeader>
-      <List>
-        <ListItem sx={{ paddingLeft: 0 }}>
-          <ListItemText
-            primary="Frontend Developer"
-            secondary={
-              <Typography component="span" variant="body2" sx={{ color: '#ffffff99', display: 'block' }}>
-                Feb 2019 - Present · 3 yrs 7 mos
-              </Typography>
-            }
-            sx={{ color: '#ffffffe6', textTransform: 'capitalize' }}
-          />
-        </ListItem>
-      </List>
+    <CardSection
+      showMore={profile?.organizations.length > limitData}
+      showMoreTitle={`${profile?.organizations.length - limitData} ${title.toLowerCase()}s`}
+      empty={profile?.organizations.length === 0}
+    >
+      <CardHeader title="Organizations">
+        <BtnAction title={title} type="add" />
+        <BtnAction title={title} type="edit" />
+      </CardHeader>
+      {profile?.organizations.length > 0 && (
+        <List>
+          {profile?.organizations.slice(0, limitData).map(({ id, organizationName, position }) => (
+            <ListItem sx={{ paddingLeft: 0 }}>
+              <ListItemText
+                primary={organizationName}
+                secondary={
+                  <Typography component="span" variant="body2" sx={{ color: '#ffffff99', display: 'block' }}>
+                    {position} · Feb 2019 - Present
+                  </Typography>
+                }
+                sx={{ color: '#ffffffe6', textTransform: 'capitalize' }}
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </CardSection>
   );
 };
