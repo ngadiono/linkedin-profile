@@ -24,6 +24,8 @@ import { CardProfile, HeroImage, ProfileImage, ProfileDesc } from './Profile.sty
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
+  const { firstName, lastName, position, age, experiences } = profile ?? {};
+
   useEffect(() => {
     dispatch(profileLoading());
     const fetchProfile = async () => {
@@ -47,17 +49,19 @@ const Profile: React.FC = () => {
             alt="Remy Sharp"
             src="https://media-exp1.licdn.com/dms/image/C5103AQGK3tKgTL_MOw/profile-displayphoto-shrink_200_200/0/1533869608104?e=1666828800&v=beta&t=unwVfRnIfJ_2uHYPP6g8AUehs9pN5Zme9iRp9Fq4ZK8"
           />
-          <ProfileDesc>
-            <Typography variant="h5" gutterBottom>
-              john doe
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Sr. Frontend Developer at Google
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              25 Years old
-            </Typography>
-          </ProfileDesc>
+          {profile && (
+            <ProfileDesc>
+              <Typography variant="h5" gutterBottom>
+                {firstName} {lastName}
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                {position} {experiences.length > 0 && `at ${experiences[0].companyName}`}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                {age} Years old
+              </Typography>
+            </ProfileDesc>
+          )}
         </Box>
       </CardProfile>
       <About />

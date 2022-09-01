@@ -45,19 +45,11 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
     languages: [
       {
         id: '1d',
-        language: '',
-        proficiency: '',
+        language: 'yayaya',
+        proficiency: 'hahaha',
       },
     ],
-    organizations: [
-      {
-        id: '1e',
-        organizationName: '',
-        position: '',
-        startDate: '',
-        endData: '',
-      },
-    ],
+    organizations: [],
   });
 };
 

@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ProfileState {
-  detail: object;
+  detail: any;
   loading: boolean;
   error: boolean;
 }
 
 const initialState: ProfileState = {
-  detail: {},
+  detail: null,
   loading: false,
   error: false,
 };
