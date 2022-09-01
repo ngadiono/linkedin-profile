@@ -1,3 +1,4 @@
+// Vendors
 import React, { ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import type { NextPage } from 'next';
@@ -9,7 +10,12 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '@/styles/mui/theme';
 import createEmotionCache from '@/styles/mui/createEmotionCache';
 
+// Store
 import store from '@/store/store';
+
+// Auth
+import { AuthProvider } from '@/common/auth/AuthProvider';
+import { AuthGuard } from '@/common/auth/AuthGuard';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -21,11 +27,13 @@ interface MyAppProps extends AppProps {
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
+  requireAuth?: boolean;
 };
 
 const App: React.FC = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -33,7 +41,19 @@ const App: React.FC = (props: MyAppProps) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
+        <Provider store={store}>
+          <AuthProvider>
+            {/* if requireAuth property is present - protect the page */}
+            {Component.requireAuth ? (
+              <AuthGuard>
+                <>{getLayout(<Component {...pageProps} />)}</>
+              </AuthGuard>
+            ) : (
+              // public page
+              <>{getLayout(<Component {...pageProps} />)}</>
+            )}
+          </AuthProvider>
+        </Provider>
       </ThemeProvider>
     </CacheProvider>
   );

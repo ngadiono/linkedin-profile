@@ -24,4 +24,6 @@ ProfilePage.getLayout = function getLayout(page: ReactElement) {
   return <Container>{page}</Container>;
 };
 
+ProfilePage.requireAuth = true;
+
 export default ProfilePage;
