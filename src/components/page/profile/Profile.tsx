@@ -5,8 +5,6 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 
 // Components
-import CardSection from '@/common/cardsection/CardSection';
-import Empty from '@/common/empty/Empty';
 import About from './about/About';
 import Education from './education/Education';
 import Experience from './experience/Experience';
@@ -62,30 +60,12 @@ const Profile: React.FC = () => {
           </ProfileDesc>
         </Box>
       </CardProfile>
-      <CardSection showMore={false}>
-        <About />
-        <Empty />
-      </CardSection>
-      <CardSection showMoreTitle="6 experiences">
-        <Experience />
-        <Empty />
-      </CardSection>
-      <CardSection showMoreTitle="6 education">
-        <Education />
-        <Empty />
-      </CardSection>
-      <CardSection showMoreTitle="6 skills">
-        <Skill />
-        <Empty />
-      </CardSection>
-      <CardSection showMoreTitle="6 languages">
-        <Language />
-        <Empty />
-      </CardSection>
-      <CardSection showMoreTitle="6 organizations">
-        <Organization />
-        <Empty />
-      </CardSection>
+      <About />
+      <Experience />
+      <Education />
+      <Skill />
+      <Language />
+      <Organization />
     </>
   );
 };

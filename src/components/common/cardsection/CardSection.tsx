@@ -1,12 +1,9 @@
 // Vendors
 import React, { memo } from 'react';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import Switch from '@mui/material/Switch';
-import Tooltip from '@mui/material/Tooltip';
+
+// Components
+import Empty from '@/common/empty/Empty';
 
 // Styles
 import { Card, ShowMore } from './CardSection.style';
@@ -15,9 +12,10 @@ interface Props {
   children?: React.ReactNode;
   showMore?: boolean;
   showMoreTitle?: string;
+  empty?: boolean;
 }
 
-const CardSection: React.FC<Props> = ({ children, showMore = true, showMoreTitle }) => {
+const CardSection: React.FC<Props> = ({ children, showMore = true, showMoreTitle, empty = false }) => {
   return (
     <>
       <Card showMore={showMore}>{children}</Card>
@@ -26,6 +24,7 @@ const CardSection: React.FC<Props> = ({ children, showMore = true, showMoreTitle
           Show all {showMoreTitle} <ArrowRightAltIcon sx={{ marginLeft: '5px' }} />
         </ShowMore>
       )}
+      {empty && <Empty />}
     </>
   );
 };

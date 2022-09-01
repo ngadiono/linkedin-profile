@@ -6,10 +6,11 @@ import Typography from '@mui/material/Typography';
 
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
+import CardSection from '@/common/cardsection/CardSection';
 
 const Organization: React.FC = () => {
   return (
-    <>
+    <CardSection showMoreTitle="6 organizations">
       <CardHeader title="Organizations"></CardHeader>
       <List>
         <ListItem sx={{ paddingLeft: 0 }}>
@@ -24,7 +25,7 @@ const Organization: React.FC = () => {
           />
         </ListItem>
       </List>
-    </>
+    </CardSection>
   );
 };
 

@@ -7,10 +7,11 @@ import GroupIcon from '@mui/icons-material/Group';
 
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
+import CardSection from '@/common/cardsection/CardSection';
 
 const Skill: React.FC = () => {
   return (
-    <>
+    <CardSection showMoreTitle="6 skills">
       <CardHeader title="Skills"></CardHeader>
       <List>
         <ListItem sx={{ paddingLeft: 0 }}>
@@ -26,7 +27,7 @@ const Skill: React.FC = () => {
           <ListItemText primary="Single-line item" sx={{ color: '#ffffffe6' }} />
         </ListItem>
       </List>
-    </>
+    </CardSection>
   );
 };
 

@@ -9,10 +9,11 @@ import Typography from '@mui/material/Typography';
 
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
+import CardSection from '@/common/cardsection/CardSection';
 
 const Education: React.FC = () => {
   return (
-    <>
+    <CardSection showMoreTitle="6 education">
       <CardHeader title="Education"></CardHeader>
       <List>
         <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
@@ -45,7 +46,7 @@ const Education: React.FC = () => {
           sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
         />
       </List>
-    </>
+    </CardSection>
   );
 };
 

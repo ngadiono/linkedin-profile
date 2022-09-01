@@ -10,10 +10,11 @@ import Typography from '@mui/material/Typography';
 
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
+import CardSection from '@/common/cardsection/CardSection';
 
 const Experience: React.FC = () => {
   return (
-    <>
+    <CardSection showMoreTitle="6 experiences">
       <CardHeader title="Experience"></CardHeader>
       <List>
         <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
@@ -61,7 +62,7 @@ const Experience: React.FC = () => {
           sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
         />
       </List>
-    </>
+    </CardSection>
   );
 };
 
