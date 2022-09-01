@@ -1,29 +1,101 @@
-# Redux Toolkit TypeScript Example
+This application uses Next.js as a boilerplate project, supported by Material UI (MUI) for web display and components used, for state management using the Redux toolkit which includes Redux, Reduk-thunk and react-redux. Core code writing using Typescript and unit testing using Jest.
+## Table of contents
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+- [Table of contents](#table-of-contents)
+- [Getting Started](#getting-started)
+- [System Requirements](#system-requirements)
+- [Learn Requirements](#learn-requirements)
+- [Main Features](#main-features)
+- [Deploy on Vercel](#deploy-on-vercel)
+- [Full Documentation](#full-documentation)
 
-The **Redux Toolkit** is a standardized way to write Redux logic (create actions and reducers, setup the store with some default middlewares like redux devtools extension). This example demonstrates each of these features with Next.js
+## Getting Started
 
-## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+1. Install package modules app
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-## How to use
+2. Run the development server
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-```bash
-npx create-next-app --example with-redux with-redux-app
-```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-yarn create next-app --example with-redux with-redux-app
-```
+   You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-```bash
-pnpm create next-app --example with-redux with-redux-app
-```
+3. Build production app
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+   ```bash
+   npm run build
+   npm run start
+   # or
+   yarn build
+   yarn start
+   ```
+
+4. Unit testing 
+
+   ```bash
+   npm run test   
+   # or
+   yarn test   
+   ```
+
+## System Requirements
+
+- [Node.js 12.0](https://nodejs.org/en/) or later
+- MacOS, Windows (including WSL), and Linux are supported
+
+## Learn Requirements
+
+- [https://reactjs.org](https://reactjs.org/)
+- [https://redux.js.org](https://redux.js.org/)
+- [https://nextjs.org](https://nextjs.org/)
+- [https://nodejs.org](https://nodejs.org/)
+- [https://expressjs.com](https://expressjs.com/)
+- [https://jestjs.io](https://jestjs.io/)
+- [https://mui.com](https://mui.com/)
+- [https://cssinjs.org](https://cssinjs.org/)
+- [https://styled-components.com](https://styled-components.com/)
+- [https://emotion.sh](https://emotion.sh/)
+
+## Main Features
+
+- Custome Server with [Express.js](https://expressjs.com/)
+- Design system with [Material UI](https://mui.com/)
+- Unit testing with [Jest](https://jestjs.io/)
+- [Redux](https://redux.js.org/) + [Redux Thunk](https://github.com/reduxjs/redux-thunk) ready
+- State management system (layout, ui, i18n, modules)
+- Layout management system (landing, dashboard, mobile and dynamic layout)
+- Stylesheet management system (override, global)
+- SEO management system
+- Assets management system (images, fonts etc)
+- Folder management system (structure files app)
+- Components management system
+- API management system
+- Libraries management system
+- Analyze bundles app
+- Custome Error page (404, 500)
+- Environment variables
+- Absolute import
+- Debugger config
+- PWA supported
+- Custom folder build & build ID include
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Full Documentation
+[https://ngadionocr.gitbook.io/next-boilerplate](https://ngadionocr.gitbook.io/next-boilerplate/)

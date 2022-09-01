@@ -1,6 +1,5 @@
 // Vendors
 import React, { ReactElement, ReactNode } from 'react';
-import { Provider } from 'react-redux';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -9,9 +8,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '@/styles/mui/theme';
 import createEmotionCache from '@/styles/mui/createEmotionCache';
+import withRedux from 'next-redux-wrapper';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // Store
-import store from '@/store/store';
+import { persistor, store } from '@/store/store';
 
 // Auth
 import { AuthProvider } from '@/common/auth/AuthProvider';
@@ -41,7 +42,7 @@ const App: React.FC = (props: MyAppProps) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <AuthProvider>
             {/* if requireAuth property is present - protect the page */}
             {Component.requireAuth ? (
@@ -53,10 +54,12 @@ const App: React.FC = (props: MyAppProps) => {
               <>{getLayout(<Component {...pageProps} />)}</>
             )}
           </AuthProvider>
-        </Provider>
+        </PersistGate>
       </ThemeProvider>
     </CacheProvider>
   );
 };
 
-export default App;
+const makeStore = () => store;
+
+export default withRedux(makeStore)(App);
