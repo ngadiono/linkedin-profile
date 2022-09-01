@@ -12,19 +12,10 @@ import { useAppSelector } from '@/hooks/useReactRedux';
 
 const title: string = 'About';
 
-const About: React.FC = () => {
+const AboutDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
-  return (
-    <CardSection showMore={false}>
-      <CardHeader title={title}>
-        <BtnAction title={title} type="edit" />
-      </CardHeader>
-      <Typography variant="body1" sx={{ color: '#ffffffe6' }}>
-        {profile?.about}
-      </Typography>
-    </CardSection>
-  );
+  return <>doooo</>;
 };
 
-export default About;
+export default AboutDetail;

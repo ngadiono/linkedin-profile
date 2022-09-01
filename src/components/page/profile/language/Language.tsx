@@ -23,6 +23,7 @@ const Language: React.FC = () => {
       showMore={profile?.languages.length > limitData}
       showMoreTitle={`${profile?.languages.length - limitData} ${title.toLowerCase()}s`}
       empty={profile?.languages.length === 0}
+      redirect="languages"
     >
       <CardHeader title="Languages">
         <BtnAction title={title} type="add" />

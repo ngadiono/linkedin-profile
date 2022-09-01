@@ -27,6 +27,7 @@ const Experience: React.FC = () => {
       showMore={profile?.experiences.length > limitData}
       showMoreTitle={`${profile?.experiences.length - limitData} ${title.toLowerCase()}s`}
       empty={profile?.experiences.length === 0}
+      redirect="experiences"
     >
       <CardHeader title="Experience">
         <BtnAction title={title} type="add" />

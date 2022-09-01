@@ -1,6 +1,7 @@
 // Vendors
 import React, { memo } from 'react';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import Link from 'next/link';
 
 // Components
 import Empty from '@/common/empty/Empty';
@@ -13,9 +14,16 @@ interface Props {
   showMore?: boolean;
   showMoreTitle?: string;
   empty?: boolean;
+  redirect?: string;
 }
 
-const CardSection: React.FC<Props> = ({ children, showMore = false, showMoreTitle, empty = false }) => {
+const CardSection: React.FC<Props> = ({
+  children,
+  showMore = false,
+  showMoreTitle,
+  empty = false,
+  redirect,
+}) => {
   return (
     <>
       <Card showMore={showMore}>
@@ -23,9 +31,13 @@ const CardSection: React.FC<Props> = ({ children, showMore = false, showMoreTitl
         {empty && <Empty />}
       </Card>
       {showMore && (
-        <ShowMore variant="contained" fullWidth>
-          Show all {showMoreTitle} <ArrowRightAltIcon sx={{ marginLeft: '5px' }} />
-        </ShowMore>
+        <>
+          <Link href={`/details/${redirect}`}>
+            <ShowMore variant="contained" fullWidth>
+              Show all {showMoreTitle} <ArrowRightAltIcon sx={{ marginLeft: '5px' }} />
+            </ShowMore>
+          </Link>
+        </>
       )}
     </>
   );

@@ -24,6 +24,7 @@ const Skill: React.FC = () => {
       showMore={profile?.skills.length > limitData}
       showMoreTitle={`${profile?.skills.length - limitData} ${title.toLowerCase()}s`}
       empty={profile?.skills.length === 0}
+      redirect="skills"
     >
       <CardHeader title="Skills">
         <BtnAction title={title} type="add" />

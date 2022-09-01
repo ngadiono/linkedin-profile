@@ -22,6 +22,7 @@ const Organization: React.FC = () => {
       showMore={profile?.organizations.length > limitData}
       showMoreTitle={`${profile?.organizations.length - limitData} ${title.toLowerCase()}s`}
       empty={profile?.organizations.length === 0}
+      redirect="organizations"
     >
       <CardHeader title="Organizations">
         <BtnAction title={title} type="add" />
