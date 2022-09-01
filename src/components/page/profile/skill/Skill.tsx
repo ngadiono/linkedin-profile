@@ -31,9 +31,9 @@ const Skill: React.FC = () => {
         <BtnAction title={title} type="edit" />
       </CardHeader>
       {profile?.skills.length > 0 && (
-        <List>
+        <List component="div">
           {profile?.skills.slice(0, limitData).map((item, idx) => (
-            <ListItem sx={{ paddingLeft: 0 }} key={idx}>
+            <ListItem sx={{ paddingLeft: 0 }} key={idx} component="div">
               <ListItemIcon sx={{ minWidth: '40px' }}>
                 <GroupIcon sx={{ color: '#ffffffe6' }} />
               </ListItemIcon>

@@ -30,9 +30,9 @@ const Language: React.FC = () => {
         <BtnAction title={title} type="edit" />
       </CardHeader>
       {profile?.languages.length > 0 && (
-        <List>
+        <List component="div">
           {profile?.languages.slice(0, limitData).map(({ id, language, proficiency }) => (
-            <ListItem sx={{ paddingLeft: 0 }} key={id}>
+            <ListItem sx={{ paddingLeft: 0 }} key={id} component="div">
               <ListItemText
                 primary={language}
                 secondary={

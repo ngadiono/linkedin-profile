@@ -8,7 +8,6 @@ export const CardProfile = styled('section')({
   borderRadius: '10px',
   padding: '20px 20px 30px 30px',
   marginBottom: '10px',
-  marginTop: '20px',
   minHeight: '425px',
   display: 'flex',
   flexFlow: 'column',

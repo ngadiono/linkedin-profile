@@ -29,9 +29,9 @@ const Organization: React.FC = () => {
         <BtnAction title={title} type="edit" />
       </CardHeader>
       {profile?.organizations.length > 0 && (
-        <List>
+        <List component="div">
           {profile?.organizations.slice(0, limitData).map(({ id, organizationName, position }) => (
-            <ListItem sx={{ paddingLeft: 0 }}>
+            <ListItem sx={{ paddingLeft: 0 }} component="div">
               <ListItemText
                 primary={organizationName}
                 secondary={

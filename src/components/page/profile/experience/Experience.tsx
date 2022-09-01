@@ -34,12 +34,12 @@ const Experience: React.FC = () => {
         <BtnAction title={title} type="edit" />
       </CardHeader>
       {profile?.experiences.length > 0 && (
-        <List>
+        <List component="div">
           {profile?.experiences
             .slice(0, limitData)
             .map(({ id, title, companyName, logo, location, description, startDate, endDate }, idx) => (
               <div key={id}>
-                <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
+                <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }} component="div">
                   <ListItemAvatar sx={{ marginRight: '10px' }}>
                     <Avatar alt={title} src={logo} sx={{ width: 48, height: 48, borderRadius: 0 }} />
                   </ListItemAvatar>
@@ -83,7 +83,6 @@ const Experience: React.FC = () => {
                 {profile?.experiences.length !== idx + 1 && (
                   <Divider
                     variant="inset"
-                    component="li"
                     sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
                   />
                 )}

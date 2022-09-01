@@ -27,7 +27,7 @@ import dialogReducer from './ui/dialog/dialogSlice';
 const persistConfig = {
   key: 'shfhshfhsfhuewriowhfjf',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['module'],
 };
 
 const layoutReducer = combineReducers({

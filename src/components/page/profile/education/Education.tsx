@@ -33,10 +33,10 @@ const Education: React.FC = () => {
         <BtnAction title={title} type="edit" />
       </CardHeader>
       {profile?.educations.length > 0 && (
-        <List>
+        <List component="div">
           {profile?.educations.slice(0, limitData).map(({ id, title, companyName, logo }, idx) => (
             <div key={id}>
-              <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }}>
+              <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }} component="div">
                 <ListItemAvatar sx={{ marginRight: '10px' }}>
                   <Avatar alt={title} src={logo} sx={{ width: 48, height: 48, borderRadius: 0 }} />
                 </ListItemAvatar>
@@ -59,7 +59,6 @@ const Education: React.FC = () => {
               {profile?.educations.length !== idx + 1 && (
                 <Divider
                   variant="inset"
-                  component="li"
                   sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
                 />
               )}
