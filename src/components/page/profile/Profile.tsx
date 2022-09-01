@@ -1,7 +1,8 @@
 // Vendors
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 // Components
 import CardSection from '@/common/cardsection/CardSection';
@@ -13,10 +14,32 @@ import Language from './language/Language';
 import Organization from './organization/Organization';
 import Skill from './skill/Skill';
 
+// Hooks
+import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
+
+// Stores
+import { profileLoading, profileDetail, profileFailure } from '@/store/module/profile/profileSlice';
+
 // Styles
 import { CardProfile, HeroImage, ProfileImage, ProfileDesc } from './Profile.style';
 
 const Profile: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const profile = useAppSelector((state) => state.module.profile.detail);
+  useEffect(() => {
+    dispatch(profileLoading());
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.post('/api/profile');
+        if (res) {
+          dispatch(profileDetail(res.data));
+        }
+      } catch (err) {
+        dispatch(profileFailure());
+      }
+    };
+    fetchProfile();
+  }, []);
   return (
     <>
       <CardProfile>
