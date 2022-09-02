@@ -16,13 +16,14 @@ export interface DialogProps {
   children?: React.ReactNode;
   onCloseDialog: () => void;
   open: boolean;
+  title: string;
 }
 
-const Dialog: React.FC<DialogProps> = ({ children, onCloseDialog, open }) => {
+const Dialog: React.FC<DialogProps> = ({ children, onCloseDialog, open, title }) => {
   return (
     <BootstrapDialog onClose={onCloseDialog} aria-labelledby="customized-dialog-title" open={open}>
       <DialogTitle sx={{ m: 0, p: 2 }}>
-        {children}
+        {title}
         {onCloseDialog ? (
           <IconButton
             aria-label="close"
@@ -40,8 +41,8 @@ const Dialog: React.FC<DialogProps> = ({ children, onCloseDialog, open }) => {
       </DialogTitle>
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onCloseDialog}>
-          Save changes
+        <Button autoFocus onClick={onCloseDialog} variant="contained">
+          Save
         </Button>
       </DialogActions>
     </BootstrapDialog>

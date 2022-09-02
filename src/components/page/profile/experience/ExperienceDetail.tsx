@@ -16,15 +16,16 @@ import BtnAction from '@/common/btnaction/BtnAction';
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Experience';
+// Config
+import { EXPERIENCES } from '@/constants';
 
 const ExperienceDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.experiences.length === 0}>
-      <CardHeader title={title} back>
-        <BtnAction title={title} type="add" />
+      <CardHeader title={EXPERIENCES} back>
+        <BtnAction title={EXPERIENCES} type="add" />
       </CardHeader>
       {profile?.experiences.length > 0 && (
         <List component="div">

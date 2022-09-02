@@ -17,7 +17,9 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Language';
+// Config
+import { LANGUAGES } from '@/constants';
+
 const limitData: number = 4;
 
 const Language: React.FC = () => {
@@ -32,15 +34,15 @@ const Language: React.FC = () => {
     <>
       <CardSection
         showMore={profile?.languages.length > limitData}
-        showMoreTitle={`${profile?.languages.length - limitData} ${title.toLowerCase()}s`}
+        showMoreTitle={`${profile?.languages.length - limitData} ${LANGUAGES.toLowerCase()}`}
         empty={profile?.languages.length === 0}
         redirect="languages"
       >
         <CardHeader title="Languages">
-          <BtnAction title={title} type="add" onClick={handleDialog} />
+          <BtnAction title={LANGUAGES} type="add" onClick={handleDialog} />
           {profile?.languages.length > 0 && (
             <Link href="/profile/details/languages">
-              <BtnAction title={title} type="edit" />
+              <BtnAction title={LANGUAGES} type="edit" />
             </Link>
           )}
         </CardHeader>
@@ -66,7 +68,7 @@ const Language: React.FC = () => {
           </List>
         )}
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${LANGUAGES}`}>
         test
       </Dialog>
     </>

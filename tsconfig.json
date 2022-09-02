@@ -34,7 +34,10 @@
       "@/store/*": ["src/store/*"],
 
       // Styles
-      "@/styles/*": ["src/styles/*"]
+      "@/styles/*": ["src/styles/*"],
+
+      // Config
+      "@/constants": ["src/config/constants"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

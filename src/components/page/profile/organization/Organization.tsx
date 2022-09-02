@@ -17,7 +17,9 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Organization';
+// Config
+import { ORGANIZATIONS } from '@/constants';
+
 const limitData: number = 4;
 
 const Organization: React.FC = () => {
@@ -32,15 +34,15 @@ const Organization: React.FC = () => {
     <>
       <CardSection
         showMore={profile?.organizations.length > limitData}
-        showMoreTitle={`${profile?.organizations.length - limitData} ${title.toLowerCase()}s`}
+        showMoreTitle={`${profile?.organizations.length - limitData} ${ORGANIZATIONS.toLowerCase()}`}
         empty={profile?.organizations.length === 0}
         redirect="organizations"
       >
         <CardHeader title="Organizations">
-          <BtnAction title={title} type="add" onClick={handleDialog} />
+          <BtnAction title={ORGANIZATIONS} type="add" onClick={handleDialog} />
           {profile?.organizations.length > 0 && (
             <Link href="/profile/details/organizations">
-              <BtnAction title={title} type="edit" />
+              <BtnAction title={ORGANIZATIONS} type="edit" />
             </Link>
           )}
         </CardHeader>
@@ -66,7 +68,7 @@ const Organization: React.FC = () => {
           </List>
         )}
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${ORGANIZATIONS}`}>
         test
       </Dialog>
     </>

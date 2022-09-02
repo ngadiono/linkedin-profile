@@ -18,7 +18,9 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Skill';
+// Config
+import { SKILLS } from '@/constants';
+
 const limitData: number = 4;
 
 const Skill: React.FC = () => {
@@ -33,15 +35,15 @@ const Skill: React.FC = () => {
     <>
       <CardSection
         showMore={profile?.skills.length > limitData}
-        showMoreTitle={`${profile?.skills.length - limitData} ${title.toLowerCase()}s`}
+        showMoreTitle={`${profile?.skills.length - limitData} ${SKILLS.toLowerCase()}`}
         empty={profile?.skills.length === 0}
         redirect="skills"
       >
         <CardHeader title="Skills">
-          <BtnAction title={title} type="add" onClick={handleDialog} />
+          <BtnAction title={SKILLS} type="add" onClick={handleDialog} />
           {profile?.skills.length > 0 && (
             <Link href="/profile/details/skills">
-              <BtnAction title={title} type="edit" />
+              <BtnAction title={SKILLS} type="edit" />
             </Link>
           )}
         </CardHeader>
@@ -58,7 +60,7 @@ const Skill: React.FC = () => {
           </List>
         )}
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${SKILLS}`}>
         test
       </Dialog>
     </>

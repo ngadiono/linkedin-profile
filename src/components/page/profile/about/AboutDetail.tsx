@@ -10,7 +10,8 @@ import BtnAction from '@/common/btnaction/BtnAction';
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'About';
+// Config
+import { ABOUT } from '@/constants';
 
 const AboutDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);

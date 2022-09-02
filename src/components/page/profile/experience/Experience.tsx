@@ -21,7 +21,9 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Experience';
+// Config
+import { EXPERIENCES } from '@/constants';
+
 const limitData: number = 4;
 
 const Experience: React.FC = () => {
@@ -36,15 +38,15 @@ const Experience: React.FC = () => {
     <>
       <CardSection
         showMore={profile?.experiences.length > limitData}
-        showMoreTitle={`${profile?.experiences.length - limitData} ${title.toLowerCase()}s`}
+        showMoreTitle={`${profile?.experiences.length - limitData} ${EXPERIENCES.toLowerCase()}`}
         empty={profile?.experiences.length === 0}
         redirect="experiences"
       >
         <CardHeader title="Experience">
-          <BtnAction title={title} type="add" onClick={handleDialog} />
+          <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />
           {profile?.experiences.length > 0 && (
             <Link href="/profile/details/experiences">
-              <BtnAction title={title} type="edit" />
+              <BtnAction title={EXPERIENCES} type="edit" />
             </Link>
           )}
         </CardHeader>
@@ -106,7 +108,7 @@ const Experience: React.FC = () => {
           </List>
         )}
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${EXPERIENCES}`}>
         test
       </Dialog>
     </>

@@ -20,7 +20,9 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Education';
+// Config
+import { EDUCATIONS } from '@/constants';
+
 const limitData: number = 4;
 
 const Education: React.FC = () => {
@@ -35,15 +37,15 @@ const Education: React.FC = () => {
     <>
       <CardSection
         showMore={profile?.educations.length > limitData}
-        showMoreTitle={`${profile?.educations.length - limitData} ${title.toLowerCase()}s`}
+        showMoreTitle={`${profile?.educations.length - limitData} ${EDUCATIONS.toLowerCase()}`}
         empty={profile?.educations.length === 0}
         redirect="educations"
       >
-        <CardHeader title="Education">
-          <BtnAction title={title} type="add" onClick={handleDialog} />
+        <CardHeader title={EDUCATIONS}>
+          <BtnAction title={EDUCATIONS} type="add" onClick={handleDialog} />
           {profile?.educations.length > 0 && (
             <Link href="/profile/details/educations">
-              <BtnAction title={title} type="edit" />
+              <BtnAction title={EDUCATIONS} type="edit" />
             </Link>
           )}
         </CardHeader>
@@ -82,7 +84,7 @@ const Education: React.FC = () => {
           </List>
         )}
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${EDUCATIONS}`}>
         test
       </Dialog>
     </>

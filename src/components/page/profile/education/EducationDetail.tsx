@@ -16,15 +16,16 @@ import BtnAction from '@/common/btnaction/BtnAction';
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Education';
+// Config
+import { EDUCATIONS } from '@/constants';
 
 const EducationDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.educations.length === 0}>
-      <CardHeader title={title} back>
-        <BtnAction title={title} type="add" />
+      <CardHeader title={EDUCATIONS} back>
+        <BtnAction title={EDUCATIONS} type="add" />
       </CardHeader>
       {profile?.educations.length > 0 && (
         <List component="div">

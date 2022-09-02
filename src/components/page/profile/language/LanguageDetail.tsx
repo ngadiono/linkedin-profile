@@ -13,15 +13,16 @@ import BtnAction from '@/common/btnaction/BtnAction';
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Language';
+// Config
+import { LANGUAGES } from '@/constants';
 
 const LanguageDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.languages.length === 0}>
-      <CardHeader title={title} back>
-        <BtnAction title={title} type="add" />
+      <CardHeader title={LANGUAGES} back>
+        <BtnAction title={LANGUAGES} type="add" />
       </CardHeader>
       {profile?.languages.length > 0 && (
         <List component="div">

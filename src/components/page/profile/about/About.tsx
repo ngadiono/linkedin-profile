@@ -14,7 +14,8 @@ const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'About';
+// Config
+import { ABOUT } from '@/constants';
 
 const About: React.FC = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -27,14 +28,18 @@ const About: React.FC = () => {
   return (
     <>
       <CardSection showMore={false}>
-        <CardHeader title={title}>
-          {profile?.about !== '' && <BtnAction title={title} type="edit" onClick={handleDialog} />}
+        <CardHeader title={ABOUT}>
+          <BtnAction title={ABOUT} type={profile?.about !== '' ? 'edit' : 'add'} onClick={handleDialog} />
         </CardHeader>
         <Typography variant="body1" sx={{ color: '#ffffffe6' }}>
           {profile?.about}
         </Typography>
       </CardSection>
-      <Dialog open={openDialog} onCloseDialog={handleDialog}>
+      <Dialog
+        open={openDialog}
+        onCloseDialog={handleDialog}
+        title={`${profile?.about !== '' ? 'Edit' : 'Add'} ${ABOUT}`}
+      >
         test
       </Dialog>
     </>

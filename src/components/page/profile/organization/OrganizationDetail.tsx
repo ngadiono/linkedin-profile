@@ -13,15 +13,16 @@ import BtnAction from '@/common/btnaction/BtnAction';
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
 
-const title: string = 'Organizations';
+// Config
+import { ORGANIZATIONS } from '@/constants';
 
 const OrganizationDetail: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.organizations.length === 0}>
-      <CardHeader title={title} back>
-        <BtnAction title={title} type="add" />
+      <CardHeader title={ORGANIZATIONS} back>
+        <BtnAction title={ORGANIZATIONS} type="add" />
       </CardHeader>
       {profile?.organizations.length > 0 && (
         <List component="div">
