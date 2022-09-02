@@ -11,12 +11,13 @@ import {} from './BtnAction';
 interface Props {
   title: string;
   type: string;
+  onClick?: () => void;
 }
 
-const BtnAction: React.FC<Props> = ({ title, type }) => {
+const BtnAction: React.FC<Props> = ({ title, type, onClick }) => {
   return (
     <Tooltip title={`${type === 'add' ? 'Add' : 'Edit'} ${title}`}>
-      <IconButton>
+      <IconButton onClick={onClick}>
         {type === 'add' && <AddIcon sx={{ color: '#ffffffe6' }} />}{' '}
         {type === 'edit' && <EditIcon sx={{ color: '#ffffffe6' }} />}
       </IconButton>
