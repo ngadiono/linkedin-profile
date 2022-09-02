@@ -1,4 +1,5 @@
 // Profile
+export const INTRO: string = 'Intro';
 export const ABOUT: string = 'About';
 export const EXPERIENCES: string = 'Experiences';
 export const EDUCATIONS: string = 'Educations';

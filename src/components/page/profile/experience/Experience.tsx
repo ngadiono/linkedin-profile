@@ -28,7 +28,7 @@ const limitData: number = 4;
 
 const Experience: React.FC = () => {
   const profile = useAppSelector((state) => state.module.profile.detail);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const handleDialog = () => {
     setOpenDialog(!openDialog);

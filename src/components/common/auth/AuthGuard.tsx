@@ -1,6 +1,10 @@
-import { useAuth } from './AuthProvider';
-import { useRouter } from 'next/router';
+// Vendors
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+// Components
+import { useAuth } from './AuthProvider';
+import Loading from '@/common/loading/Loading';
 
 export function AuthGuard({ children }: { children: JSX.Element }) {
   const { user, initializing, setRedirect } = useAuth();
@@ -18,7 +22,7 @@ export function AuthGuard({ children }: { children: JSX.Element }) {
 
   /* show loading indicator while the auth provider is still initializing */
   if (initializing) {
-    return <h1>Application Loading...</h1>;
+    return <Loading text="Loading Application" />;
   }
 
   // if auth initialized with a valid user show protected page

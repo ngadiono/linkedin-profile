@@ -18,7 +18,7 @@ import { useAppSelector } from '@/hooks/useReactRedux';
 import { ABOUT } from '@/constants';
 
 const About: React.FC = () => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   const handleDialog = () => {

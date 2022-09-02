@@ -40,4 +40,6 @@ export const ProfileDesc = styled('div')({
   marginTop: '20px',
   textTransform: 'capitalize',
   color: '#ffffffe6',
+  display: 'flex',
+  justifyContent: 'space-between',
 });

@@ -23,6 +23,12 @@ export const profileSlice = createSlice({
       state.loading = false;
       state.detail = action.payload;
     },
+
+    // Purpose demo only
+    profileDetailUpdate: (state, action) => {
+      state.detail = { ...state.detail, ...action.payload };
+    },
+
     profileFailure: (state) => {
       state.loading = false;
       state.error = true;
@@ -31,6 +37,7 @@ export const profileSlice = createSlice({
   },
 });
 
-export const { profileLoading, profileDetail, profileFailure, reset } = profileSlice.actions;
+export const { profileLoading, profileDetail, profileFailure, reset, profileDetailUpdate } =
+  profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -12,6 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 
 // Components
 import { useAuth } from '@/common/auth/AuthProvider';
+import Loading from '@/common/loading/Loading';
 
 // Styles
 import { Container, Content, CardSignin } from './Signin.style';
@@ -84,7 +85,7 @@ const Signin: React.FC = () => {
   }, [router, getRedirect, clearRedirect, initializing, user]);
 
   if (initializing) {
-    return <h1>Application Loading...</h1>;
+    return <Loading text="Loading Application" />;
   }
   if (signInInProgress) {
     return <></>;
@@ -109,6 +110,7 @@ const Signin: React.FC = () => {
                     label="Email"
                     variant="outlined"
                     fullWidth
+                    autoComplete="off"
                     sx={{ mb: '20px' }}
                     onChange={formik.handleChange}
                     value={formik.values.email}
@@ -123,6 +125,7 @@ const Signin: React.FC = () => {
                     label="Password"
                     variant="outlined"
                     fullWidth
+                    autoComplete="off"
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     error={formik.touched.password && Boolean(formik.errors.password)}

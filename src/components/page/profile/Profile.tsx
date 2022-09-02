@@ -1,5 +1,6 @@
 // Vendors
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import axios from 'axios';
@@ -11,6 +12,14 @@ import Experience from './experience/Experience';
 import Language from './language/Language';
 import Organization from './organization/Organization';
 import Skill from './skill/Skill';
+import BtnAction from '@/common/btnaction/BtnAction';
+import Loading from '@/common/loading/Loading';
+const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
+  ssr: false,
+});
+const ProfileForm = dynamic(() => import('./ProfileForm'), {
+  suspense: true,
+});
 
 // Hooks
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
@@ -21,16 +30,25 @@ import { profileLoading, profileDetail, profileFailure } from '@/store/module/pr
 // Styles
 import { CardProfile, HeroImage, ProfileImage, ProfileDesc } from './Profile.style';
 
+// Config
+import { INTRO } from '@/constants';
+
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
-  const { firstName, lastName, position, age, experiences } = profile ?? {};
+  const { firstName, lastName, headline, age, experiences } = profile ?? {};
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  const handleDialog = () => {
+    setOpenDialog(!openDialog);
+  };
 
   useEffect(() => {
     dispatch(profileLoading());
     const fetchProfile = async () => {
       try {
-        const res = await axios.post('/api/profile');
+        const res = await axios.get('/api/profile');
         if (res) {
           dispatch(profileDetail(res.data));
         }
@@ -51,19 +69,29 @@ const Profile: React.FC = () => {
           />
           {profile && (
             <ProfileDesc>
-              <Typography variant="h5" gutterBottom>
-                {firstName} {lastName}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {position} {experiences.length > 0 && `at ${experiences[0].companyName}`}
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom>
-                {age} Years old
-              </Typography>
+              <div>
+                <Typography variant="h5" gutterBottom>
+                  {firstName} {lastName}
+                </Typography>
+                <Typography variant="h6" gutterBottom>
+                  {headline}
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  {age} Years old
+                </Typography>
+              </div>
+              <div>
+                <BtnAction title={INTRO} type="edit" onClick={handleDialog} />
+              </div>
             </ProfileDesc>
           )}
         </Box>
       </CardProfile>
+      <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Edit ${INTRO}`}>
+        <Suspense fallback={<Loading text="Loading Form" />}>
+          <ProfileForm onCloseDialog={handleDialog} />
+        </Suspense>
+      </Dialog>
       <About />
       <Experience />
       <Education />

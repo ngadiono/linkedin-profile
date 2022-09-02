@@ -1,13 +1,8 @@
 // Vendors
 import React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 
 // Styles
 import { BootstrapDialog } from './Dialog.style';
@@ -39,12 +34,7 @@ const Dialog: React.FC<DialogProps> = ({ children, onCloseDialog, open, title })
           </IconButton>
         ) : null}
       </DialogTitle>
-      <DialogContent dividers>{children}</DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={onCloseDialog} variant="contained">
-          Save
-        </Button>
-      </DialogActions>
+      {children}
     </BootstrapDialog>
   );
 };

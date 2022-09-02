@@ -4,15 +4,46 @@ import Dialog from '@mui/material/Dialog';
 
 export const Wrapper = styled('div')({});
 
-export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+const color: string = '#ffffffe6';
+
+export const BootstrapDialog = styled(Dialog)(() => ({
   '& .MuiPaper-root': { minWidth: 600, backgroundColor: '#1d2226' },
   '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
+    padding: '30px 20px',
   },
   '& .MuiDialogActions-root': {
     padding: 20,
   },
   '& .MuiTypography-root': {
-    color: '#ffffffe6',
+    color: color,
+  },
+  '& .MuiFormControl-root': {
+    marginBottom: 20,
+    '&:last-child': {
+      marginBottom: 0,
+    },
+  },
+  '& input': {
+    color: color,
+  },
+  '& label': {
+    color: color,
+    '&.Mui-focused': {
+      color: color,
+    },
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: color,
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: color,
+    },
+    '&:hover fieldset': {
+      borderColor: color,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: color,
+    },
   },
 }));
