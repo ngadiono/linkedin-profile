@@ -7,6 +7,10 @@ import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 // Hooks
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
@@ -28,8 +32,13 @@ interface FormValues {
 
 const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [proficiency, setProficiency] = useState<string>('');
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
+
+  const handleChangeSelect = (event: SelectChangeEvent) => {
+    setProficiency(event.target.value as string);
+  };
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
@@ -75,15 +84,22 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
           error={formik.touched.language && Boolean(formik.errors.language)}
           helperText={formik.touched.language && formik.errors.language}
         />
-        <TextField
-          label="Proficiency"
-          variant="outlined"
-          fullWidth
-          autoComplete="off"
-          name="proficiency"
-          onChange={formik.handleChange}
-          value={formik.values.proficiency}
-        />
+        <FormControl fullWidth>
+          <InputLabel id="proficiency">Proficiency</InputLabel>
+          <Select
+            labelId="proficiency"
+            id="proficiency"
+            onChange={formik.handleChange}
+            value={formik.values.proficiency}
+            label="Proficiency"
+          >
+            <MenuItem value="Elementary proficiency">Elementary proficiency</MenuItem>
+            <MenuItem value="Limited working proficiency">Limited working proficiency</MenuItem>
+            <MenuItem value="Professional working proficiency">Professional working proficiency</MenuItem>
+            <MenuItem value="Full professional proficiency">Full professional proficiency</MenuItem>
+            <MenuItem value="Native or bilingual proficiency">Native or bilingual proficiency</MenuItem>
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button type="submit" variant="contained" disabled={loading}>

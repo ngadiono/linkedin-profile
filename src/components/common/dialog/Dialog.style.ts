@@ -52,4 +52,13 @@ export const BootstrapDialog = styled(Dialog)(() => ({
       borderColor: color,
     },
   },
+  '& .MuiSvgIcon-root, & .MuiSelect-select': {
+    color: color,
+  },
+  '& .MuiChip-root': {
+    backgroundColor: color,
+    '& .MuiSvgIcon-root': {
+      color: '#1d2226',
+    },
+  },
 }));

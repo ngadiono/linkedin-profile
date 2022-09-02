@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 // Hooks
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
@@ -22,8 +23,21 @@ export interface Props {
 }
 
 interface FormValues {
-  skill: string;
+  skill: string | any[];
 }
+
+const options = [
+  { title: 'HTML' },
+  { title: 'CSS' },
+  { title: 'Javascript' },
+  { title: 'React' },
+  { title: 'Redux' },
+  { title: 'Next.js' },
+  { title: 'Vue.js' },
+  { title: 'Angular' },
+  { title: 'Node.js' },
+  { title: 'Mongodb' },
+];
 
 const SkillForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -61,16 +75,26 @@ const SkillForm: React.FC<Props> = ({ onCloseDialog }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <DialogContent dividers>
-        <TextField
-          label="Skills*"
-          variant="outlined"
-          fullWidth
-          autoComplete="off"
-          name="skill"
-          onChange={formik.handleChange}
-          value={formik.values.skill}
-          error={formik.touched.skill && Boolean(formik.errors.skill)}
-          helperText={formik.touched.skill && formik.errors.skill}
+        <Autocomplete
+          multiple
+          limitTags={2}
+          id="multiple-limit-tags"
+          options={options}
+          getOptionLabel={(option) => option.title}
+          // defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Skills*"
+              placeholder="Favorites"
+              name="skill"
+              onChange={formik.handleChange}
+              value={formik.values.skill}
+              error={formik.touched.skill && Boolean(formik.errors.skill)}
+              helperText={formik.touched.skill && formik.errors.skill}
+            />
+          )}
+          sx={{ width: '100%' }}
         />
       </DialogContent>
       <DialogActions>
