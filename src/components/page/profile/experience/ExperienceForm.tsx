@@ -23,7 +23,7 @@ import Stack from '@mui/material/Stack';
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 
 // Stores
-import { profileDetailUpdate } from '@/store/module/profile/profileSlice';
+import { profileExperienceUpdate } from '@/store/module/profile/profileSlice';
 
 // Configs
 import { ERROR_TEXT } from '@/constants';
@@ -44,8 +44,7 @@ interface FormValues {
 
 const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [valueStartDate, setValueStartDate] = useState<Dayjs | null>(dayjs());
-  const [valueEndDate, setValueEndDate] = useState<Dayjs | null>(dayjs());
+  const [currentWorking, setCurrentWorking] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
 
@@ -65,8 +64,12 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
       logo: Yup.string(),
       location: Yup.string(),
       description: Yup.string().required(`Description ${ERROR_TEXT}`),
-      startDate: Yup.string().required(`Start date working ${ERROR_TEXT}`),
-      endDate: Yup.string().required(`End date working ${ERROR_TEXT}`),
+      startDate: Yup.date().required(`Start date working ${ERROR_TEXT}`),
+      endDate: Yup.date().required(`End date working ${ERROR_TEXT}`),
+      // endDate: Yup.date().when('checkboxPresent', {
+      //   is: (checkboxPresent) => checkboxPresent === true,
+      //   then: Yup.date().required(`End date working ${ERROR_TEXT}`),
+      // }),
     }),
     onSubmit: (values) => {
       setLoading(true);
@@ -75,10 +78,8 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
           const res = await axios.put('/api/profile', values);
           if (res) {
             setLoading(false);
-
             // Purpose demo only
-            dispatch(profileDetailUpdate(values));
-
+            dispatch(profileExperienceUpdate(values));
             onCloseDialog();
           }
         } catch (err) {
@@ -90,7 +91,7 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
   });
 
   const handloLogo = (img: string) => {
-    console.log(img);
+    formik.setFieldValue('logo', img);
   };
 
   return (
@@ -135,7 +136,15 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
         />
         <FormGroup sx={{ marginBottom: '10px' }}>
           <FormControlLabel
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                name="checkboxPresent"
+                onClick={() => {
+                  setCurrentWorking(!currentWorking);
+                }}
+                checked={currentWorking}
+              />
+            }
             label="I am currently working in this role"
           />
         </FormGroup>
@@ -144,24 +153,43 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
             <DatePicker
               views={['year', 'month']}
               label="Start date*"
-              minDate={dayjs('2012-03-01')}
-              maxDate={dayjs('2023-06-01')}
-              value={valueStartDate}
+              minDate={dayjs('1990-03-01')}
+              maxDate={dayjs('2030-06-01')}
+              value={formik.values.startDate}
               onChange={(newValue) => {
-                setValueStartDate(newValue);
+                if (newValue) {
+                  formik.setFieldValue('startDate', newValue.format());
+                }
               }}
-              renderInput={(params) => <TextField {...params} helperText={null} fullWidth />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  error={formik.touched.startDate && Boolean(formik.errors.startDate)}
+                  helperText={formik.touched.startDate && formik.errors.startDate}
+                />
+              )}
             />
             <DatePicker
               views={['year', 'month']}
               label="End date*"
-              minDate={dayjs('2012-03-01')}
-              maxDate={dayjs('2023-06-01')}
-              value={valueEndDate}
+              minDate={dayjs('1990-03-01')}
+              maxDate={dayjs('2030-06-01')}
+              value={formik.values.endDate}
               onChange={(newValue) => {
-                setValueEndDate(newValue);
+                if (newValue) {
+                  formik.setFieldValue('endDate', newValue.format());
+                }
               }}
-              renderInput={(params) => <TextField {...params} helperText={null} fullWidth />}
+              disabled={currentWorking}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  error={formik.touched.endDate && Boolean(formik.errors.endDate)}
+                  helperText={formik.touched.endDate && formik.errors.endDate}
+                />
+              )}
             />
           </Stack>
         </LocalizationProvider>

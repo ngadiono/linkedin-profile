@@ -28,6 +28,9 @@ export const profileSlice = createSlice({
     profileDetailUpdate: (state, action) => {
       state.detail = { ...state.detail, ...action.payload };
     },
+    profileExperienceUpdate: (state, action) => {
+      state.detail.experiences = [action.payload, ...state.detail.experiences];
+    },
 
     profileFailure: (state) => {
       state.loading = false;
@@ -37,7 +40,13 @@ export const profileSlice = createSlice({
   },
 });
 
-export const { profileLoading, profileDetail, profileFailure, reset, profileDetailUpdate } =
-  profileSlice.actions;
+export const {
+  profileLoading,
+  profileDetail,
+  profileFailure,
+  reset,
+  profileDetailUpdate,
+  profileExperienceUpdate,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

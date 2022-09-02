@@ -2,6 +2,7 @@
 import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -36,6 +37,23 @@ const Experience: React.FC = () => {
 
   const handleDialog = () => {
     setOpenDialog(!openDialog);
+  };
+
+  const calcDate = (date1, date2) => {
+    var diff = Math.floor(date1.getTime() - date2.getTime());
+    var day = 1000 * 60 * 60 * 24;
+
+    var days = Math.floor(diff / day);
+    var months = Math.floor(days / 31);
+    var years = Math.floor(months / 12);
+
+    var message = date2.toDateString();
+    message += ' was ';
+    message += days + ' days ';
+    message += months + ' months ';
+    message += years + ' years ago \n';
+
+    return message;
   };
 
   return (
@@ -80,7 +98,9 @@ const Experience: React.FC = () => {
                             variant="body2"
                             sx={{ color: '#ffffff99', display: 'block' }}
                           >
-                            Feb 2019 - Present · 3 yrs 7 mos
+                            {dayjs(startDate).format('YY MMM YYYY')} -{' '}
+                            {endDate === 'present' ? 'Present' : dayjs(endDate).format('YY MMM YYYY')} · 3 yrs
+                            7
                           </Typography>
                           <Typography
                             component="span"

@@ -52,13 +52,29 @@ export const BootstrapDialog = styled(Dialog)(() => ({
       borderColor: color,
     },
   },
-  '& .MuiSvgIcon-root, & .MuiSelect-select': {
+  '& .MuiSvgIcon-root, & .MuiSelect-select, & span.MuiAutocomplete-tag': {
     color: color,
   },
   '& .MuiChip-root': {
     backgroundColor: color,
     '& .MuiSvgIcon-root': {
       color: '#1d2226',
+    },
+  },
+  '& .Mui-disabled': {
+    '& .MuiSvgIcon-root': {
+      color: 'inherit',
+    },
+    '&.MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'inherit',
+      },
+      '&:hover fieldset': {
+        borderColor: 'inherit',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'inherit',
+      },
     },
   },
 }));

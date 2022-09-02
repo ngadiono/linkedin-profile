@@ -6,7 +6,8 @@
     "start": "next start",
     "type-check": "tsc",
     "test": "jest --watch",
-    "test-clear": "jest --clearCache"
+    "test-clear": "jest --clearCache",
+    "export": "cross-env NEXT_EXPORT=true next build && cross-env NEXT_EXPORT=true next export"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.3",
@@ -20,6 +21,7 @@
     "dayjs": "^1.11.5",
     "formik": "^2.2.9",
     "next": "latest",
+    "next-pwa": "^5.6.0",
     "next-redux-wrapper": "^7.0.5",
     "react": "^18.1.0",
     "react-avatar-upload": "^1.0.4",

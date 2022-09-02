@@ -80,13 +80,13 @@ const SkillForm: React.FC<Props> = ({ onCloseDialog }) => {
           limitTags={2}
           id="multiple-limit-tags"
           options={options}
-          getOptionLabel={(option) => option.title}
+          // getOptionLabel={(option) => option.title}
           // defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Skills*"
-              placeholder="Favorites"
+              placeholder="Another skills"
               name="skill"
               onChange={formik.handleChange}
               value={formik.values.skill}

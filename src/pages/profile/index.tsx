@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 // Layouts
 import Container from '@/layouts/landing/container/Container';
-import { NextPageWithLayout } from './_app';
+import { NextPageWithLayout } from '../_app';
 
 // Components
 import Profile from '@/page/profile/Profile';
