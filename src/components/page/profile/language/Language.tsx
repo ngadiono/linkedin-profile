@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import List from '@mui/material/List';
@@ -10,8 +10,12 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
+import Loading from '@/common/loading/Loading';
 const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
   ssr: false,
+});
+const LanguageForm = dynamic(() => import('./LanguageForm'), {
+  suspense: true,
 });
 
 // Hooks
@@ -69,7 +73,9 @@ const Language: React.FC = () => {
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${LANGUAGES}`}>
-        test
+        <Suspense fallback={<Loading text="Loading Form" />}>
+          <LanguageForm onCloseDialog={handleDialog} />
+        </Suspense>
       </Dialog>
     </>
   );

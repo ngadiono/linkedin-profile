@@ -1,5 +1,5 @@
 // Vendors
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 
@@ -7,8 +7,12 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
+import Loading from '@/common/loading/Loading';
 const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
   ssr: false,
+});
+const AboutForm = dynamic(() => import('./AboutForm'), {
+  suspense: true,
 });
 
 // Hooks
@@ -40,7 +44,9 @@ const About: React.FC = () => {
         onCloseDialog={handleDialog}
         title={`${profile?.about !== '' ? 'Edit' : 'Add'} ${ABOUT}`}
       >
-        test
+        <Suspense fallback={<Loading text="Loading Form" />}>
+          <AboutForm onCloseDialog={handleDialog} />
+        </Suspense>
       </Dialog>
     </>
   );

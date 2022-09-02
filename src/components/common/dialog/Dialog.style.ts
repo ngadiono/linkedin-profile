@@ -23,7 +23,7 @@ export const BootstrapDialog = styled(Dialog)(() => ({
       marginBottom: 0,
     },
   },
-  '& input': {
+  '& input, & textarea': {
     color: color,
   },
   '& label': {
@@ -34,6 +34,12 @@ export const BootstrapDialog = styled(Dialog)(() => ({
   },
   '& .MuiInput-underline:after': {
     borderBottomColor: color,
+  },
+  '& .MuiFormHelperText-root': {
+    color: color,
+    '&.Mui-error': {
+      color: '#ff1744',
+    },
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {

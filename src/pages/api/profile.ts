@@ -111,12 +111,25 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
         educations: [
           {
             id: '1c',
-            title: 'Frontend Developer',
-            companyName: 'Facebook',
-            logo: '',
+            schoolName: 'Boston university',
+            degree: 'Bachelor',
+            fieldOfStudy: 'Computer science',
+            startDate: '',
+            endDate: '',
           },
         ],
-        skills: ['HTML', 'CSS', 'Javascript', 'React', 'Redux', 'Next.js', 'Vue.js', 'Angular', 'Node.js'],
+        skills: [
+          { title: 'HTML' },
+          { title: 'CSS' },
+          { title: 'Javascript' },
+          { title: 'React' },
+          { title: 'Redux' },
+          { title: 'Next.js' },
+          { title: 'Vue.js' },
+          { title: 'Angular' },
+          { title: 'Node.js' },
+          { title: 'Mongodb' },
+        ],
         languages: [
           {
             id: '1d',

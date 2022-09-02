@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
 
 // Components
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
+import Loading from '@/common/loading/Loading';
 const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
   ssr: false,
+});
+const EducationForm = dynamic(() => import('./EducationForm'), {
+  suspense: true,
 });
 
 // Hooks
@@ -51,41 +55,46 @@ const Education: React.FC = () => {
         </CardHeader>
         {profile?.educations.length > 0 && (
           <List component="div">
-            {profile?.educations.slice(0, limitData).map(({ id, title, companyName, logo }, idx) => (
-              <div key={id}>
-                <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }} component="div">
-                  <ListItemAvatar sx={{ marginRight: '10px' }}>
-                    <Avatar alt={title} src={logo} sx={{ width: 48, height: 48, borderRadius: 0 }} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={title}
-                    secondary={
-                      <>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          sx={{ color: '#ffffff99', display: 'block', marginBottom: '10px' }}
-                        >
-                          {companyName}
-                        </Typography>
-                      </>
-                    }
-                    sx={{ color: '#ffffffe6', textTransform: 'capitalize' }}
-                  />
-                </ListItem>
-                {profile?.educations.length !== idx + 1 && (
-                  <Divider
-                    variant="inset"
-                    sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
-                  />
-                )}
-              </div>
-            ))}
+            {profile?.educations
+              .slice(0, limitData)
+              .map(({ id, schoolName, degree, startDate, endDate }, idx) => (
+                <div key={id}>
+                  <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }} component="div">
+                    <ListItemIcon sx={{ minWidth: '40px' }}>
+                      <SchoolIcon sx={{ color: '#ffffffe6' }} />
+                    </ListItemIcon>
+
+                    <ListItemText
+                      primary={schoolName}
+                      secondary={
+                        <>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            sx={{ color: '#ffffff99', display: 'block', marginBottom: '10px' }}
+                          >
+                            {degree}
+                          </Typography>
+                        </>
+                      }
+                      sx={{ color: '#ffffffe6', textTransform: 'capitalize' }}
+                    />
+                  </ListItem>
+                  {profile?.educations.length !== idx + 1 && (
+                    <Divider
+                      variant="inset"
+                      sx={{ backgroundColor: '#ffffff25', marginTop: '15px', marginLeft: 0 }}
+                    />
+                  )}
+                </div>
+              ))}
           </List>
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${EDUCATIONS}`}>
-        test
+        <Suspense fallback={<Loading text="Loading Form" />}>
+          <EducationForm onCloseDialog={handleDialog} />
+        </Suspense>
       </Dialog>
     </>
   );

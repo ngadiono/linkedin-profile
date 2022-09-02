@@ -14,6 +14,9 @@ import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 // Stores
 import { profileDetailUpdate } from '@/store/module/profile/profileSlice';
 
+// Configs
+import { ERROR_TEXT } from '@/constants';
+
 export interface Props {
   onCloseDialog: () => void;
 }
@@ -38,9 +41,9 @@ const ProfileForm: React.FC<Props> = ({ onCloseDialog }) => {
       headline: profile?.headline,
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required('First name is a required field'),
-      lastName: Yup.string().required('Last name is a required field'),
-      age: Yup.number().positive().required('Age is a required field').min(1).max(200),
+      firstName: Yup.string().required(`First name ${ERROR_TEXT}`),
+      lastName: Yup.string().required(`Last name ${ERROR_TEXT}`),
+      age: Yup.number().positive().required(`Age ${ERROR_TEXT}`).min(1).max(200),
     }),
     onSubmit: (values) => {
       setLoading(true);
