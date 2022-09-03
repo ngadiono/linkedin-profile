@@ -29,8 +29,13 @@ export const profileSlice = createSlice({
       state.loading = false;
       state.edit = action.payload;
     },
+    profileFailure: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    reset: () => initialState,
 
-    // Purpose demo only
+    // PURPOSE DEMO ONLY
     profileDetailUpdate: (state, action) => {
       state.detail = { ...state.detail, ...action.payload };
     },
@@ -50,12 +55,19 @@ export const profileSlice = createSlice({
       });
       state.detail.experiences = newArr;
     },
-
-    profileFailure: (state) => {
-      state.loading = false;
-      state.error = true;
+    profileEducationAdd: (state, action) => {
+      state.detail.educations = [action.payload, ...state.detail.educations];
     },
-    reset: () => initialState,
+    profileEducationUpdate: (state, action) => {
+      const newArr = state.detail.educations.map((obj) => {
+        if (obj.id === action.payload.id) {
+          delete obj.temp;
+          return { ...obj, ...action.payload };
+        }
+        return obj;
+      });
+      state.detail.educations = newArr;
+    },
   },
 });
 
@@ -65,10 +77,13 @@ export const {
   profileEdit,
   profileFailure,
   reset,
+  profileAvatarUpdate,
   profileDetailUpdate,
+
   profileExperienceAdd,
   profileExperienceUpdate,
-  profileAvatarUpdate,
+  profileEducationAdd,
+  profileEducationUpdate,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -18,7 +18,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
-import FormHelperText from '@mui/material/FormHelperText';
 
 // Hooks
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
@@ -47,7 +46,6 @@ interface FormValues {
 const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const profile = useAppSelector((state) => state.module.profile.detail);
   const profileEdit = useAppSelector((state) => state.module.profile.edit);
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
@@ -183,7 +181,7 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
                   {...params}
                   fullWidth
                   error={formik.touched.startDate && Boolean(formik.errors.startDate)}
-                  helperText={formik.touched.startDate && formik.errors.startDate}
+                  helperText={<>{formik.touched.startDate && formik.errors.startDate}</>}
                 />
               )}
             />
@@ -204,7 +202,7 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
                   {...params}
                   fullWidth
                   error={formik.touched.endDate && Boolean(formik.errors.endDate)}
-                  helperText={formik.touched.endDate && formik.errors.endDate}
+                  helperText={<>{formik.touched.endDate && formik.errors.endDate}</>}
                 />
               )}
             />

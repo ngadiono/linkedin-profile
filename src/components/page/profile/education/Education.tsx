@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -51,7 +52,7 @@ const Education: React.FC = () => {
           <List component="div">
             {profile?.educations
               .slice(0, limitData)
-              .map(({ id, schoolName, degree, startDate, endDate }, idx) => (
+              .map(({ id, schoolName, degree, fieldOfStudy, startDate, endDate }, idx) => (
                 <div key={id}>
                   <ListItem alignItems="flex-start" sx={{ paddingLeft: 0 }} component="div">
                     <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -67,7 +68,14 @@ const Education: React.FC = () => {
                             variant="body2"
                             sx={{ color: '#ffffff99', display: 'block', marginBottom: '10px' }}
                           >
-                            {degree}
+                            {dayjs(startDate).format('YY MMM YYYY')} - {dayjs(endDate).format('YY MMM YYYY')}
+                          </Typography>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            sx={{ color: '#ffffff99', display: 'block', marginBottom: '10px' }}
+                          >
+                            {degree} - {fieldOfStudy}
                           </Typography>
                         </>
                       }

@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import dayjs, { Dayjs } from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,7 +17,7 @@ import Stack from '@mui/material/Stack';
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 
 // Stores
-import { profileDetailUpdate } from '@/store/module/profile/profileSlice';
+import { profileEducationAdd, profileEducationUpdate } from '@/store/module/profile/profileSlice';
 
 // Configs
 import { ERROR_TEXT } from '@/constants';
@@ -30,50 +30,62 @@ interface FormValues {
   schoolName: string;
   degree: string;
   fieldOfStudy: string;
-  startDate: string;
-  endDate: string;
+  startDate: any;
+  endDate: any;
 }
 
 const EducationForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [valueStartDate, setValueStartDate] = useState<Dayjs | null>(dayjs());
-  const [valueEndDate, setValueEndDate] = useState<Dayjs | null>(dayjs());
   const dispatch = useAppDispatch();
-  const profile = useAppSelector((state) => state.module.profile.detail);
+  const profileEdit = useAppSelector((state) => state.module.profile.edit);
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
-      schoolName: profile?.schoolName,
-      degree: profile?.degree,
-      fieldOfStudy: profile?.fieldOfStudy,
-      startDate: profile?.startDate,
-      endDate: profile?.endDate,
+      schoolName: profileEdit ? profileEdit.schoolName : '',
+      degree: profileEdit ? profileEdit.degree : '',
+      fieldOfStudy: profileEdit ? profileEdit.fieldOfStudy : '',
+      startDate: profileEdit ? profileEdit.startDate : '',
+      endDate: profileEdit ? profileEdit.endDate : '',
     },
     validationSchema: Yup.object({
       schoolName: Yup.string().required(`School name ${ERROR_TEXT}`),
       degree: Yup.string(),
       fieldOfStudy: Yup.string(),
-      startDate: Yup.string().required(`Start date education ${ERROR_TEXT}`),
-      endDate: Yup.string().required(`End date education ${ERROR_TEXT}`),
+      startDate: Yup.date().required(`Start date education ${ERROR_TEXT}`),
+      endDate: Yup.date().required(`End date education ${ERROR_TEXT}`),
     }),
     onSubmit: (values) => {
+      const formData = {
+        ...values,
+        id: uuidv4(),
+        startDate: values.startDate.format(),
+        endDate: values.endDate.format(),
+      };
       setLoading(true);
       const fetchProfile = async () => {
         try {
-          const res = await axios.put('/api/profile', values);
+          const res = await axios.post('/api/profile', values);
           if (res) {
             setLoading(false);
 
             // Purpose demo only
-            dispatch(profileDetailUpdate(values));
-
+            if (profileEdit === null) {
+              dispatch(profileEducationAdd(formData));
+            } else {
+              dispatch(profileEducationUpdate({ ...values, id: profileEdit.id }));
+            }
             onCloseDialog();
           }
         } catch (err) {
           setLoading(false);
         }
       };
-      fetchProfile();
+      if (navigator.onLine) {
+        fetchProfile();
+      } else {
+        dispatch(profileEducationUpdate({ ...values, id: profileEdit.id, temp: true }));
+        onCloseDialog();
+      }
     },
   });
 
@@ -111,27 +123,45 @@ const EducationForm: React.FC<Props> = ({ onCloseDialog }) => {
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Stack direction="row" spacing={2}>
-            <DatePicker
+            <MobileDatePicker
               views={['year']}
               label="Start date*"
-              minDate={dayjs('2012-03-01')}
-              maxDate={dayjs('2023-06-01')}
-              value={valueStartDate}
+              showToolbar={false}
+              value={formik.values.startDate}
               onChange={(newValue) => {
-                setValueStartDate(newValue);
+                if (newValue) {
+                  formik.setFieldValue('startDate', newValue);
+                }
               }}
-              renderInput={(params) => <TextField {...params} helperText={null} fullWidth />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  error={formik.touched.startDate && Boolean(formik.errors.startDate)}
+                  helperText={<>{formik.touched.startDate && formik.errors.startDate}</>}
+                />
+              )}
             />
-            <DatePicker
+            <MobileDatePicker
               views={['year']}
               label="End date*"
-              minDate={dayjs('2012-03-01')}
-              maxDate={dayjs('2023-06-01')}
-              value={valueEndDate}
+              showToolbar={false}
+              minDate={formik.values.startDate}
+              value={formik.values.endDate}
               onChange={(newValue) => {
-                setValueEndDate(newValue);
+                if (newValue) {
+                  formik.setFieldValue('endDate', newValue);
+                }
               }}
-              renderInput={(params) => <TextField {...params} helperText={null} fullWidth />}
+              disabled={formik.values.startDate === ''}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  error={formik.touched.endDate && Boolean(formik.errors.endDate)}
+                  helperText={<>{formik.touched.endDate && formik.errors.endDate}</>}
+                />
+              )}
             />
           </Stack>
         </LocalizationProvider>

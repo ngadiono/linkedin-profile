@@ -37,7 +37,7 @@ import { INTRO } from '@/constants';
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
-  const { firstName, lastName, headline, age, experiences, avatar } = profile ?? {};
+  const { firstName, lastName, headline, age, avatar } = profile ?? {};
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [images, setImages] = React.useState([]);
@@ -68,8 +68,14 @@ const Profile: React.FC = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get('/api/profile');
-        if (res) {
-          dispatch(profileDetail(res.data));
+
+        // PURPOSE DEMO ONLY
+        if (profile === null) {
+          if (res) {
+            dispatch(profileDetail(res.data));
+          }
+        } else {
+          dispatch(profileDetail(profile));
         }
       } catch (err) {
         dispatch(profileFailure());

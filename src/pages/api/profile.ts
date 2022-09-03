@@ -135,8 +135,13 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
         languages: [
           {
             id: '1d',
-            language: 'yayaya',
-            proficiency: 'hahaha',
+            language: 'Indonesian',
+            proficiency: 'Native or bilingual proficiency',
+          },
+          {
+            id: '2d',
+            language: 'English',
+            proficiency: 'Native or bilingual proficiency',
           },
         ],
         organizations: [
