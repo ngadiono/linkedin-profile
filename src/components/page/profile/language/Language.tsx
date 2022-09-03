@@ -43,7 +43,7 @@ const Language: React.FC = () => {
             <>
               <BtnAction title={LANGUAGES} type="add" onClick={handleDialog} />
               {profile?.languages.length > 0 && (
-                <Link href="/profile/details/languages">
+                <Link href="/in/johndoe//details/languages">
                   <BtnAction title={LANGUAGES} type="edit" />
                 </Link>
               )}

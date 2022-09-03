@@ -87,7 +87,7 @@ const Experience: React.FC = () => {
             <>
               <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />
               {profile?.experiences.length > 0 && (
-                <Link href="/profile/details/experiences">
+                <Link href="/in/johndoe/details/experiences">
                   <BtnAction title={EXPERIENCES} type="edit" />
                 </Link>
               )}

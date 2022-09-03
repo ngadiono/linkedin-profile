@@ -23,7 +23,11 @@ import Stack from '@mui/material/Stack';
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 
 // Stores
-import { profileExperienceAdd, profileExperienceUpdate } from '@/store/module/profile/profileSlice';
+import {
+  profileExperienceAdd,
+  profileExperienceUpdate,
+  profileExperienceDelete,
+} from '@/store/module/profile/profileSlice';
 
 // Configs
 import { ERROR_TEXT } from '@/constants';
@@ -33,6 +37,7 @@ export interface Props {
 }
 
 interface FormValues {
+  id: string;
   title: string;
   companyName: string;
   logo: string;
@@ -50,6 +55,7 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
+      id: profileEdit ? profileEdit.id : '',
       title: profileEdit ? profileEdit.title : '',
       companyName: profileEdit ? profileEdit.companyName : '',
       logo: profileEdit ? profileEdit.logo : '',
@@ -115,6 +121,11 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
 
   const handloLogo = (img: string) => {
     formik.setFieldValue('logo', img);
+  };
+
+  const handleDelete = () => {
+    dispatch(profileExperienceDelete(profileEdit?.id));
+    onCloseDialog();
   };
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -230,7 +241,12 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
           helperText={formik.touched.description && formik.errors.description}
         />
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ display: 'flex', justifyContent: profileEdit ? 'space-between' : 'flex-end' }}>
+        {profileEdit && (
+          <Button onClick={handleDelete} variant="contained" color="secondary" disabled={loading}>
+            Delete
+          </Button>
+        )}
         <Button type="submit" variant="contained" disabled={loading}>
           {loading ? 'Saving...' : 'Save'}
         </Button>

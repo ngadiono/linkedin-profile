@@ -29,12 +29,12 @@ const SkillDetail: React.FC = () => {
       </CardHeader>
       {profile?.skills.length > 0 && (
         <List component="div">
-          {profile?.skills.map((item, idx) => (
+          {profile?.skills.map(({ title }, idx) => (
             <ListItem sx={{ paddingLeft: 0 }} key={idx} component="div">
               <ListItemIcon sx={{ minWidth: '40px' }}>
                 <GroupIcon sx={{ color: '#ffffffe6' }} />
               </ListItemIcon>
-              <ListItemText primary={item} sx={{ color: '#ffffffe6' }} />
+              <ListItemText primary={title} sx={{ color: '#ffffffe6' }} />
             </ListItem>
           ))}
         </List>

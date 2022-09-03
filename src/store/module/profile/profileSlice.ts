@@ -14,6 +14,13 @@ const initialState: ProfileState = {
   error: false,
 };
 
+function removeObjectWithId(arr, id) {
+  const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+  arr.splice(objWithIdIndex, 1);
+
+  return arr;
+}
+
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
@@ -58,6 +65,9 @@ export const profileSlice = createSlice({
       });
       state.detail.experiences = newArr;
     },
+    profileExperienceDelete: (state, action) => {
+      state.detail.experiences = removeObjectWithId(state.detail.experiences, action.payload);
+    },
     profileEducationAdd: (state, action) => {
       state.detail.educations = [action.payload, ...state.detail.educations];
     },
@@ -70,6 +80,19 @@ export const profileSlice = createSlice({
         return obj;
       });
       state.detail.educations = newArr;
+    },
+    profileLanguageAdd: (state, action) => {
+      state.detail.languages = [action.payload, ...state.detail.languages];
+    },
+    profileLanguageUpdate: (state, action) => {
+      const newArr = state.detail.languages.map((obj) => {
+        if (obj.id === action.payload.id) {
+          delete obj.temp;
+          return { ...obj, ...action.payload };
+        }
+        return obj;
+      });
+      state.detail.languages = newArr;
     },
   },
 });
@@ -84,9 +107,12 @@ export const {
   profileDetailUpdate,
 
   profileExperienceAdd,
+  profileExperienceDelete,
   profileExperienceUpdate,
   profileEducationAdd,
   profileEducationUpdate,
+  profileLanguageAdd,
+  profileLanguageUpdate,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

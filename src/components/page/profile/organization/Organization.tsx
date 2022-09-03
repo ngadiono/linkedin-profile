@@ -43,7 +43,7 @@ const Organization: React.FC = () => {
             <>
               <BtnAction title={ORGANIZATIONS} type="add" onClick={handleDialog} />
               {profile?.organizations.length > 0 && (
-                <Link href="/profile/details/organizations">
+                <Link href="/in/johndoe/details/organizations">
                   <BtnAction title={ORGANIZATIONS} type="edit" />
                 </Link>
               )}

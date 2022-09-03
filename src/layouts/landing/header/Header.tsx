@@ -1,5 +1,6 @@
 // Vendors
 import * as React from 'react';
+import { useRouter } from 'next/router';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,10 +16,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // Components
 import { useAuth } from '@/common/auth/AuthProvider';
 
-const settings = ['Profile', 'Logout'];
-
 const Header = () => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, auth } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -35,6 +35,12 @@ const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    auth.signOut();
+    router.push('/');
   };
 
   return (
@@ -71,11 +77,9 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           )}

@@ -83,7 +83,11 @@ const EducationForm: React.FC<Props> = ({ onCloseDialog }) => {
       if (navigator.onLine) {
         fetchProfile();
       } else {
-        dispatch(profileEducationUpdate({ ...values, id: profileEdit.id, temp: true }));
+        if (profileEdit !== null) {
+          dispatch(profileEducationUpdate({ ...values, id: profileEdit.id, temp: true }));
+        } else {
+          dispatch(profileEducationAdd({ ...values, id: uuidv4(), temp: true }));
+        }
         onCloseDialog();
       }
     },

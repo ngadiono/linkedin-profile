@@ -44,7 +44,7 @@ const Skill: React.FC = () => {
             <>
               <BtnAction title={SKILLS} type="add" onClick={handleDialog} />
               {profile?.skills.length > 0 && (
-                <Link href="/profile/details/skills">
+                <Link href="/in/johndoe/details/skills">
                   <BtnAction title={SKILLS} type="edit" />
                 </Link>
               )}

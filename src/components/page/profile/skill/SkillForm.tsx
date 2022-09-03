@@ -23,7 +23,7 @@ export interface Props {
 }
 
 interface FormValues {
-  skill: string | any[];
+  skill: any;
 }
 
 const options = [
@@ -80,8 +80,8 @@ const SkillForm: React.FC<Props> = ({ onCloseDialog }) => {
           limitTags={2}
           id="multiple-limit-tags"
           options={options}
-          // getOptionLabel={(option) => option.title}
-          // defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
+          getOptionLabel={(option: any) => option.title}
+          // defaultValue={profile?.skills}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -91,7 +91,7 @@ const SkillForm: React.FC<Props> = ({ onCloseDialog }) => {
               onChange={formik.handleChange}
               value={formik.values.skill}
               error={formik.touched.skill && Boolean(formik.errors.skill)}
-              helperText={formik.touched.skill && formik.errors.skill}
+              helperText={<>{formik.touched.skill && formik.errors.skill}</>}
             />
           )}
           sx={{ width: '100%' }}

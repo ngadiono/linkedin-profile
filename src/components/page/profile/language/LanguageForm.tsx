@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -16,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 
 // Stores
-import { profileDetailUpdate } from '@/store/module/profile/profileSlice';
+import { profileLanguageAdd, profileLanguageUpdate } from '@/store/module/profile/profileSlice';
 
 // Configs
 import { ERROR_TEXT } from '@/constants';
@@ -34,7 +35,7 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [proficiency, setProficiency] = useState<string>('');
   const dispatch = useAppDispatch();
-  const profile = useAppSelector((state) => state.module.profile.detail);
+  const profileEdit = useAppSelector((state) => state.module.profile.edit);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setProficiency(event.target.value as string);
@@ -42,14 +43,18 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
-      language: profile?.language,
-      proficiency: profile?.proficiency,
+      language: profileEdit ? profileEdit.language : '',
+      proficiency: profileEdit ? profileEdit.proficiency : '',
     },
     validationSchema: Yup.object({
       language: Yup.string().required(`Language ${ERROR_TEXT}`),
       proficiency: Yup.string(),
     }),
     onSubmit: (values) => {
+      const formData = {
+        ...values,
+        id: uuidv4(),
+      };
       setLoading(true);
       const fetchProfile = async () => {
         try {
@@ -58,7 +63,11 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
             setLoading(false);
 
             // Purpose demo only
-            dispatch(profileDetailUpdate(values));
+            if (profileEdit === null) {
+              dispatch(profileLanguageAdd(formData));
+            } else {
+              dispatch(profileLanguageUpdate({ ...values, id: profileEdit.id }));
+            }
 
             onCloseDialog();
           }
@@ -66,10 +75,18 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
           setLoading(false);
         }
       };
-      fetchProfile();
+      if (navigator.onLine) {
+        fetchProfile();
+      } else {
+        if (profileEdit !== null) {
+          dispatch(profileLanguageUpdate({ ...values, id: profileEdit.id, temp: true }));
+        } else {
+          dispatch(profileLanguageAdd({ ...values, id: uuidv4(), temp: true }));
+        }
+        onCloseDialog();
+      }
     },
   });
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <DialogContent dividers>
@@ -92,6 +109,7 @@ const LanguageForm: React.FC<Props> = ({ onCloseDialog }) => {
             onChange={formik.handleChange}
             value={formik.values.proficiency}
             label="Proficiency"
+            name="proficiency"
           >
             <MenuItem value="Elementary proficiency">Elementary proficiency</MenuItem>
             <MenuItem value="Limited working proficiency">Limited working proficiency</MenuItem>
