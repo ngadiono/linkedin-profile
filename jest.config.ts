@@ -5,6 +5,7 @@ const config: InitialOptionsTsJest = {
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   transform: {
     '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
+    '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   testEnvironment: 'jsdom',
   globals: {

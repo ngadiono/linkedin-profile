@@ -1,9 +1,12 @@
 import React from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import Loading from './Loading';
 
-test('renders component loading', () => {
-  render(<Loading />);
-  expect(screen.getByTestId('loading')).toHaveTextContent('Loading...');
+describe('Components :', () => {
+  test('loading component should be rendered', () => {
+    render(<Loading />);
+    expect(screen.getByRole('heading', { level: 5 })).toHaveTextContent('Loading...');
+  });
 });

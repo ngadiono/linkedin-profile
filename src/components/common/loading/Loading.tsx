@@ -12,7 +12,7 @@ interface Props {
 
 const Loading: React.FC<Props> = ({ text }) => {
   return (
-    <Wrapper data-testid="loading">
+    <Wrapper>
       <div>
         <CircularProgress />
         <Typography variant="h5" gutterBottom>
