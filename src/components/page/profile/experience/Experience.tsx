@@ -1,6 +1,5 @@
 // Vendors
-import React, { useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import List from '@mui/material/List';
@@ -15,16 +14,14 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
-import Loading from '@/common/loading/Loading';
-const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
-  ssr: false,
-});
-const ExperienceForm = dynamic(() => import('./ExperienceForm'), {
-  suspense: true,
-});
+import Dialog from '@/common/dialog/Dialog';
+import ExperienceForm from './ExperienceForm';
 
 // Hooks
-import { useAppSelector } from '@/hooks/useReactRedux';
+import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
+
+// Stores
+import { profileEdit } from '@/store/module/profile/profileSlice';
 
 // Config
 import { EXPERIENCES } from '@/constants';
@@ -32,28 +29,13 @@ import { EXPERIENCES } from '@/constants';
 const limitData: number = 4;
 
 const Experience: React.FC = () => {
+  const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const handleDialog = () => {
+    dispatch(profileEdit(null));
     setOpenDialog(!openDialog);
-  };
-
-  const calcDate = (date1, date2) => {
-    var diff = Math.floor(date1.getTime() - date2.getTime());
-    var day = 1000 * 60 * 60 * 24;
-
-    var days = Math.floor(diff / day);
-    var months = Math.floor(days / 31);
-    var years = Math.floor(months / 12);
-
-    var message = date2.toDateString();
-    message += ' was ';
-    message += days + ' days ';
-    message += months + ' months ';
-    message += years + ' years ago \n';
-
-    return message;
   };
 
   return (
@@ -99,8 +81,7 @@ const Experience: React.FC = () => {
                             sx={{ color: '#ffffff99', display: 'block' }}
                           >
                             {dayjs(startDate).format('YY MMM YYYY')} -{' '}
-                            {endDate === 'present' ? 'Present' : dayjs(endDate).format('YY MMM YYYY')} · 3 yrs
-                            7
+                            {endDate === 'present' ? 'Present' : dayjs(endDate).format('YY MMM YYYY')}
                           </Typography>
                           <Typography
                             component="span"
@@ -133,9 +114,7 @@ const Experience: React.FC = () => {
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${EXPERIENCES}`}>
-        <Suspense fallback={<Loading text="Loading Form" />}>
-          <ExperienceForm onCloseDialog={handleDialog} />
-        </Suspense>
+        <ExperienceForm onCloseDialog={handleDialog} />
       </Dialog>
     </>
   );

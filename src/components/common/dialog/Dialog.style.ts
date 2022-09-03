@@ -62,6 +62,9 @@ export const BootstrapDialog = styled(Dialog)(() => ({
     },
   },
   '& .Mui-disabled': {
+    '&.Mui-error': {
+      borderColor: '#ff1744',
+    },
     '& .MuiSvgIcon-root': {
       color: 'inherit',
     },

@@ -1,5 +1,4 @@
-import React, { useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,13 +9,8 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
-import Loading from '@/common/loading/Loading';
-const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
-  ssr: false,
-});
-const OrganizationForm = dynamic(() => import('./OrganizationForm'), {
-  suspense: true,
-});
+import Dialog from '@/common/dialog/Dialog';
+import OrganizationForm from './OrganizationForm';
 
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
@@ -73,9 +67,7 @@ const Organization: React.FC = () => {
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${ORGANIZATIONS}`}>
-        <Suspense fallback={<Loading text="Loading Form" />}>
-          <OrganizationForm onCloseDialog={handleDialog} />
-        </Suspense>
+        <OrganizationForm onCloseDialog={handleDialog} />
       </Dialog>
     </>
   );

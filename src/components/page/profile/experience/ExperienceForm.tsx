@@ -4,10 +4,10 @@ import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Avatar from 'react-avatar-upload';
-import dayjs, { Dayjs } from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -18,12 +18,13 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
+import FormHelperText from '@mui/material/FormHelperText';
 
 // Hooks
 import { useAppSelector, useAppDispatch } from '@/hooks/useReactRedux';
 
 // Stores
-import { profileExperienceUpdate } from '@/store/module/profile/profileSlice';
+import { profileExperienceAdd, profileExperienceUpdate } from '@/store/module/profile/profileSlice';
 
 // Configs
 import { ERROR_TEXT } from '@/constants';
@@ -38,25 +39,27 @@ interface FormValues {
   logo: string;
   location: string;
   description: string;
-  startDate: string;
-  endDate: string;
+  startDate: any;
+  endDate: any;
+  currentWorking: boolean;
 }
 
 const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [currentWorking, setCurrentWorking] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
+  const profileEdit = useAppSelector((state) => state.module.profile.edit);
 
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
-      title: profile?.title,
-      companyName: profile?.companyName,
-      logo: profile?.logo,
-      location: profile?.location,
-      description: profile?.description,
-      startDate: profile?.startDate,
-      endDate: profile?.endDate,
+      title: profileEdit ? profileEdit.title : '',
+      companyName: profileEdit ? profileEdit.companyName : '',
+      logo: profileEdit ? profileEdit.logo : '',
+      location: profileEdit ? profileEdit.location : '',
+      description: profileEdit ? profileEdit.description : '',
+      startDate: profileEdit ? profileEdit.startDate : '',
+      endDate: profileEdit ? profileEdit.endDate : '',
+      currentWorking: profileEdit ? profileEdit.endDate !== 'present' : false,
     },
     validationSchema: Yup.object({
       title: Yup.string().required(`Title name ${ERROR_TEXT}`),
@@ -65,35 +68,48 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
       location: Yup.string(),
       description: Yup.string().required(`Description ${ERROR_TEXT}`),
       startDate: Yup.date().required(`Start date working ${ERROR_TEXT}`),
-      endDate: Yup.date().required(`End date working ${ERROR_TEXT}`),
-      // endDate: Yup.date().when('checkboxPresent', {
-      //   is: (checkboxPresent) => checkboxPresent === true,
-      //   then: Yup.date().required(`End date working ${ERROR_TEXT}`),
-      // }),
+      endDate: Yup.date().when('currentWorking', {
+        is: false,
+        then: Yup.date().required(`End date working ${ERROR_TEXT}`),
+      }),
     }),
     onSubmit: (values) => {
+      const formData = {
+        ...values,
+        id: uuidv4(),
+        startDate: values.startDate.format(),
+        endDate: formik.values.currentWorking ? 'present' : values.endDate.format(),
+      };
       setLoading(true);
       const fetchProfile = async () => {
         try {
-          const res = await axios.put('/api/profile', values);
+          const res = await axios.post('/api/profile', formData);
           if (res) {
             setLoading(false);
             // Purpose demo only
-            dispatch(profileExperienceUpdate(values));
+            if (profileEdit === null) {
+              dispatch(profileExperienceAdd(formData));
+            } else {
+              dispatch(profileExperienceUpdate({ ...values, id: profileEdit.id }));
+            }
             onCloseDialog();
           }
         } catch (err) {
           setLoading(false);
         }
       };
-      fetchProfile();
+      if (navigator.onLine) {
+        fetchProfile();
+      } else {
+        dispatch(profileExperienceUpdate({ ...values, id: profileEdit.id, temp: true }));
+        onCloseDialog();
+      }
     },
   });
 
   const handloLogo = (img: string) => {
     formik.setFieldValue('logo', img);
   };
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <DialogContent dividers>
@@ -109,7 +125,11 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
           helperText={formik.touched.title && formik.errors.title}
         />
         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-          <Avatar getImg={handloLogo} />
+          {formik.values.logo !== '' ? (
+            <img alt="logo" src={formik.values.logo} width="100px" height="100px" />
+          ) : (
+            <Avatar getImg={handloLogo} />
+          )}
           <Typography component="span" variant="body2" sx={{ color: '#ffffffe6', marginLeft: '10px' }}>
             Logo
           </Typography>
@@ -138,11 +158,9 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
           <FormControlLabel
             control={
               <Checkbox
-                name="checkboxPresent"
-                onClick={() => {
-                  setCurrentWorking(!currentWorking);
-                }}
-                checked={currentWorking}
+                name="currentWorking"
+                onChange={formik.handleChange}
+                checked={formik.values.currentWorking}
               />
             }
             label="I am currently working in this role"
@@ -150,15 +168,14 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
         </FormGroup>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Stack direction="row" spacing={2}>
-            <DatePicker
+            <MobileDatePicker
               views={['year', 'month']}
               label="Start date*"
-              minDate={dayjs('1990-03-01')}
-              maxDate={dayjs('2030-06-01')}
+              showToolbar={false}
               value={formik.values.startDate}
               onChange={(newValue) => {
                 if (newValue) {
-                  formik.setFieldValue('startDate', newValue.format());
+                  formik.setFieldValue('startDate', newValue);
                 }
               }}
               renderInput={(params) => (
@@ -170,18 +187,18 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
                 />
               )}
             />
-            <DatePicker
+            <MobileDatePicker
               views={['year', 'month']}
               label="End date*"
-              minDate={dayjs('1990-03-01')}
-              maxDate={dayjs('2030-06-01')}
+              showToolbar={false}
+              minDate={formik.values.startDate}
               value={formik.values.endDate}
               onChange={(newValue) => {
                 if (newValue) {
-                  formik.setFieldValue('endDate', newValue.format());
+                  formik.setFieldValue('endDate', newValue);
                 }
               }}
-              disabled={currentWorking}
+              disabled={formik.values.currentWorking || formik.values.startDate === ''}
               renderInput={(params) => (
                 <TextField
                   {...params}

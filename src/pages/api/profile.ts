@@ -12,6 +12,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
     case 'GET' || 'get':
       res.status(200).json({
         id: '1a',
+        avatar:
+          'https://media-exp1.licdn.com/dms/image/C5103AQGK3tKgTL_MOw/profile-displayphoto-shrink_200_200/0/1533869608104?e=1666828800&v=beta&t=unwVfRnIfJ_2uHYPP6g8AUehs9pN5Zme9iRp9Fq4ZK8',
         firstName: 'John',
         lastName: 'Doe',
         headline: 'Sr. Frontend Developer at Google',
@@ -27,8 +29,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '2b',
@@ -38,8 +40,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '3b',
@@ -49,8 +51,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '4b',
@@ -60,8 +62,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '5b',
@@ -71,8 +73,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '6b',
@@ -82,8 +84,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '7b',
@@ -93,8 +95,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
           {
             id: '8b',
@@ -104,8 +106,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             location: 'Yogyakarta Area, Yogyakarta, Indonesia',
             description:
               'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Quos Blanditiis Tenetur Unde Suscipit, Quam Beatae Rerum Inventore Consectetur, Neque Doloribus, Cupiditate Numquam Dignissimos Laborum Fugiat Deleniti? Eum Quasi Quidem Quibusdam.',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
         ],
         educations: [
@@ -114,8 +116,8 @@ const profileHandler: NextApiHandler = async (req: NextApiRequest, res: NextApiR
             schoolName: 'Boston university',
             degree: 'Bachelor',
             fieldOfStudy: 'Computer science',
-            startDate: '',
-            endDate: '',
+            startDate: '2019-09-02T23:50:51+07:00',
+            endDate: '2023-12-02T23:50:51+07:00',
           },
         ],
         skills: [

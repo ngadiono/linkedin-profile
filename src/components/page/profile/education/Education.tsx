@@ -1,5 +1,4 @@
-import React, { useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,13 +12,8 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
-import Loading from '@/common/loading/Loading';
-const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
-  ssr: false,
-});
-const EducationForm = dynamic(() => import('./EducationForm'), {
-  suspense: true,
-});
+import Dialog from '@/common/dialog/Dialog';
+import EducationForm from './EducationForm';
 
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
@@ -92,9 +86,7 @@ const Education: React.FC = () => {
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${EDUCATIONS}`}>
-        <Suspense fallback={<Loading text="Loading Form" />}>
-          <EducationForm onCloseDialog={handleDialog} />
-        </Suspense>
+        <EducationForm onCloseDialog={handleDialog} />
       </Dialog>
     </>
   );

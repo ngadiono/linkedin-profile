@@ -1,5 +1,4 @@
-import React, { useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,13 +10,8 @@ import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
-import Loading from '@/common/loading/Loading';
-const Dialog = dynamic(() => import('@/common/dialog/Dialog'), {
-  ssr: false,
-});
-const SkillForm = dynamic(() => import('./SkillForm'), {
-  suspense: true,
-});
+import Dialog from '@/common/dialog/Dialog';
+import SkillForm from './SkillForm';
 
 // Hooks
 import { useAppSelector } from '@/hooks/useReactRedux';
@@ -65,9 +59,7 @@ const Skill: React.FC = () => {
         )}
       </CardSection>
       <Dialog open={openDialog} onCloseDialog={handleDialog} title={`Add ${SKILLS}`}>
-        <Suspense fallback={<Loading text="Loading Form" />}>
-          <SkillForm onCloseDialog={handleDialog} />
-        </Suspense>
+        <SkillForm onCloseDialog={handleDialog} />
       </Dialog>
     </>
   );
