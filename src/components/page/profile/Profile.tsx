@@ -1,6 +1,5 @@
 // Vendors
 import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import axios from 'axios';

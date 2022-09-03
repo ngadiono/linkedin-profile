@@ -118,7 +118,9 @@ const Experience: React.FC = () => {
                                   sx={{ color: '#ffffff99', display: 'block' }}
                                 >
                                   {dayjs(startDate).format('YY MMM YYYY')} -{' '}
-                                  {endDate === 'present' ? 'Present' : dayjs(endDate).format('YY MMM YYYY')}
+                                  {endDate === 'present' || endDate === ''
+                                    ? 'Present'
+                                    : dayjs(endDate).format('YY MMM YYYY')}
                                 </Typography>
                                 <Typography
                                   component="span"

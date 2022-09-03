@@ -57,7 +57,7 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
       description: profileEdit ? profileEdit.description : '',
       startDate: profileEdit ? profileEdit.startDate : '',
       endDate: profileEdit ? profileEdit.endDate : '',
-      currentWorking: profileEdit ? profileEdit.endDate !== 'present' : false,
+      currentWorking: profileEdit ? profileEdit.endDate === 'present' : false,
     },
     validationSchema: Yup.object({
       title: Yup.string().required(`Title name ${ERROR_TEXT}`),
@@ -65,18 +65,22 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
       logo: Yup.string(),
       location: Yup.string(),
       description: Yup.string().required(`Description ${ERROR_TEXT}`),
-      startDate: Yup.date().required(`Start date working ${ERROR_TEXT}`),
-      endDate: Yup.date().when('currentWorking', {
+      startDate: Yup.string().required(`Start date working ${ERROR_TEXT}`),
+      endDate: Yup.string().when('currentWorking', {
         is: false,
-        then: Yup.date().required(`End date working ${ERROR_TEXT}`),
+        then: Yup.string().required(`End date working ${ERROR_TEXT}`),
       }),
     }),
     onSubmit: (values) => {
       const formData = {
         ...values,
         id: uuidv4(),
-        startDate: values.startDate.format(),
-        endDate: formik.values.currentWorking ? 'present' : values.endDate.format(),
+        startDate: typeof values.startDate === 'string' ? values.startDate : values.startDate.format(),
+        endDate: formik.values.currentWorking
+          ? 'present'
+          : typeof values.endDate === 'string'
+          ? values.endDate
+          : values.endDate.format(),
       };
       setLoading(true);
       const fetchProfile = async () => {
@@ -99,7 +103,11 @@ const ExperienceForm: React.FC<Props> = ({ onCloseDialog }) => {
       if (navigator.onLine) {
         fetchProfile();
       } else {
-        dispatch(profileExperienceUpdate({ ...values, id: profileEdit.id, temp: true }));
+        if (profileEdit !== null) {
+          dispatch(profileExperienceUpdate({ ...values, id: profileEdit.id, temp: true }));
+        } else {
+          dispatch(profileExperienceAdd({ ...values, id: uuidv4(), temp: true }));
+        }
         onCloseDialog();
       }
     },
