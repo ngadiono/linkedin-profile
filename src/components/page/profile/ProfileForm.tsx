@@ -62,7 +62,12 @@ const ProfileForm: React.FC<Props> = ({ onCloseDialog }) => {
           setLoading(false);
         }
       };
-      fetchProfile();
+      if (navigator.onLine) {
+        fetchProfile();
+      } else {
+        dispatch(profileDetailUpdate({ ...values, temp: true }));
+        onCloseDialog();
+      }
     },
   });
 

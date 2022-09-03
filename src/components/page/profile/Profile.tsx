@@ -4,6 +4,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import ImageUploading from 'react-images-uploading';
+import Snackbar from '@mui/material/Snackbar';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import IconButton from '@mui/material/IconButton';
 
 // Components
 import About from './about/About';
@@ -25,6 +28,7 @@ import {
   profileDetail,
   profileFailure,
   profileAvatarUpdate,
+  profileDetailUpdate,
 } from '@/store/module/profile/profileSlice';
 
 // Styles
@@ -36,11 +40,13 @@ import { INTRO } from '@/constants';
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
-  const { firstName, lastName, headline, age, avatar } = profile ?? {};
+  const { id, firstName, lastName, headline, age, avatar } = profile ?? {};
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [images, setImages] = React.useState([]);
   const maxNumber = 1;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleDialog = () => {
     setOpenDialog(!openDialog);
@@ -60,6 +66,31 @@ const Profile: React.FC = () => {
       }
     };
     postProfile();
+  };
+
+  const handleSync = (val: any) => {
+    setLoading(true);
+    const syncProfile = async () => {
+      try {
+        const res = await axios.post('/api/profile', val);
+        if (res) {
+          setLoading(false);
+          // Purpose demo only
+          dispatch(profileDetailUpdate(val));
+        }
+      } catch (err) {
+        setLoading(false);
+      }
+    };
+    if (navigator.onLine) {
+      syncProfile();
+    } else {
+      setLoading(false);
+      setOpen(true);
+      setTimeout(function () {
+        setOpen(false);
+      }, 2000);
+    }
   };
 
   useEffect(() => {
@@ -116,9 +147,42 @@ const Profile: React.FC = () => {
                     {age} Years old
                   </Typography>
                 </div>
-                <div>
-                  <BtnAction title={INTRO} type="edit" onClick={handleDialog} />
-                </div>
+                {profile.temp === undefined ? (
+                  <div>
+                    <BtnAction title={INTRO} type="edit" onClick={handleDialog} />
+                  </div>
+                ) : (
+                  <>
+                    {loading && profile.temp !== undefined ? (
+                      <div>
+                        <IconButton>
+                          <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />
+                        </IconButton>
+                      </div>
+                    ) : (
+                      <>
+                        {profile.temp !== undefined && (
+                          <div>
+                            <BtnAction
+                              title={INTRO}
+                              type="sync"
+                              onClick={() =>
+                                handleSync({
+                                  id,
+                                  firstName,
+                                  lastName,
+                                  headline,
+                                  age,
+                                  avatar,
+                                })
+                              }
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
               </ProfileDesc>
             </>
           )}
@@ -133,6 +197,12 @@ const Profile: React.FC = () => {
       <Skill />
       <Language />
       <Organization />
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={open}
+        message="No internect connection."
+      />
     </>
   );
 };

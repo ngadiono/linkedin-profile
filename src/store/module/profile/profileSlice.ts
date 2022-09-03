@@ -37,6 +37,9 @@ export const profileSlice = createSlice({
 
     // PURPOSE DEMO ONLY
     profileDetailUpdate: (state, action) => {
+      if (state.detail.temp) {
+        delete state.detail.temp;
+      }
       state.detail = { ...state.detail, ...action.payload };
     },
     profileAvatarUpdate: (state, action) => {
