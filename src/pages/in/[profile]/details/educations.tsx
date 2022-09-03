@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 // Layouts
 import Container from '@/layouts/landing/container/Container';
-import { NextPageWithLayout } from '../../_app';
+import { NextPageWithLayout } from '../../../_app';
 
 // Components
 import EducationDetail from '@/page/profile/education/EducationDetail';
@@ -24,6 +24,7 @@ EducationsPage.getLayout = function getLayout(page: ReactElement) {
   return <Container>{page}</Container>;
 };
 
-EducationsPage.requireAuth = true;
+// Enable protected page
+// EducationsPage.requireAuth = true;
 
 export default EducationsPage;

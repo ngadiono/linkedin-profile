@@ -10,6 +10,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -25,6 +26,7 @@ import { EDUCATIONS } from '@/constants';
 const limitData: number = 4;
 
 const Education: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -41,11 +43,15 @@ const Education: React.FC = () => {
         redirect="educations"
       >
         <CardHeader title={EDUCATIONS}>
-          <BtnAction title={EDUCATIONS} type="add" onClick={handleDialog} />
-          {profile?.educations.length > 0 && (
-            <Link href="/profile/details/educations">
-              <BtnAction title={EDUCATIONS} type="edit" />
-            </Link>
+          {user && (
+            <>
+              <BtnAction title={EDUCATIONS} type="add" onClick={handleDialog} />
+              {profile?.educations.length > 0 && (
+                <Link href="/profile/details/educations">
+                  <BtnAction title={EDUCATIONS} type="edit" />
+                </Link>
+              )}
+            </>
           )}
         </CardHeader>
         {profile?.educations.length > 0 && (

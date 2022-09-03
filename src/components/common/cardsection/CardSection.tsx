@@ -32,7 +32,7 @@ const CardSection: React.FC<Props> = ({
       </Card>
       {showMore && (
         <>
-          <Link href={`/profile/details/${redirect}`}>
+          <Link href={`/in/johndoe/details/${redirect}`}>
             <ShowMore variant="contained" fullWidth>
               Show all {showMoreTitle} <ArrowRightAltIcon sx={{ marginLeft: '5px' }} />
             </ShowMore>

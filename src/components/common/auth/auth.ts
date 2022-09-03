@@ -6,6 +6,7 @@ const userPassword = 'admin';
 export type User = {
   email: string;
   name: string;
+  username: string;
   token: string;
 };
 
@@ -49,6 +50,7 @@ export class Auth {
       setTimeout(() => {
         this.user = {
           name: 'John Doe',
+          username: 'johndoe',
           email,
           token: 'dfasdfadsf.asdfasdf.afsdfasd',
         };

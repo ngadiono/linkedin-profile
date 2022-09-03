@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -20,12 +21,13 @@ import { useAppSelector } from '@/hooks/useReactRedux';
 import { EDUCATIONS } from '@/constants';
 
 const EducationDetail: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.educations.length === 0}>
       <CardHeader title={EDUCATIONS} back>
-        <BtnAction title={EDUCATIONS} type="add" />
+        {user && <BtnAction title={EDUCATIONS} type="add" />}
       </CardHeader>
       {profile?.educations.length > 0 && (
         <List component="div">

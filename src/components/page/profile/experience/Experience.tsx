@@ -16,6 +16,7 @@ import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import IconButton from '@mui/material/IconButton';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -34,6 +35,7 @@ import { EXPERIENCES } from '@/constants';
 const limitData: number = 4;
 
 const Experience: React.FC = () => {
+  const { user } = useAuth();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -81,11 +83,15 @@ const Experience: React.FC = () => {
         redirect="experiences"
       >
         <CardHeader title="Experience">
-          <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />
-          {profile?.experiences.length > 0 && (
-            <Link href="/profile/details/experiences">
-              <BtnAction title={EXPERIENCES} type="edit" />
-            </Link>
+          {user && (
+            <>
+              <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />
+              {profile?.experiences.length > 0 && (
+                <Link href="/profile/details/experiences">
+                  <BtnAction title={EXPERIENCES} type="edit" />
+                </Link>
+              )}
+            </>
           )}
         </CardHeader>
         {profile?.experiences.length > 0 && (

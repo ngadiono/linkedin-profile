@@ -15,6 +15,7 @@ import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import IconButton from '@mui/material/IconButton';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -31,6 +32,7 @@ import { profileEdit, profileExperienceUpdate } from '@/store/module/profile/pro
 import { EXPERIENCES } from '@/constants';
 
 const ExperienceDetail: React.FC = () => {
+  const { user } = useAuth();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -78,7 +80,7 @@ const ExperienceDetail: React.FC = () => {
     <>
       <CardSection empty={profile?.experiences.length === 0}>
         <CardHeader title={EXPERIENCES} back>
-          <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />
+          {user && <BtnAction title={EXPERIENCES} type="add" onClick={handleDialog} />}
         </CardHeader>
         {profile?.experiences.length > 0 && (
           <List component="div">
@@ -130,22 +132,24 @@ const ExperienceDetail: React.FC = () => {
                         />
                       </ListItem>
                     </Box>
-                    <BtnAction
-                      title={EXPERIENCES}
-                      type="edit"
-                      onClick={() =>
-                        handleDialogEdit({
-                          id,
-                          title,
-                          companyName,
-                          logo,
-                          location,
-                          description,
-                          startDate,
-                          endDate,
-                        })
-                      }
-                    />
+                    {user && (
+                      <BtnAction
+                        title={EXPERIENCES}
+                        type="edit"
+                        onClick={() =>
+                          handleDialogEdit({
+                            id,
+                            title,
+                            companyName,
+                            logo,
+                            location,
+                            description,
+                            startDate,
+                            endDate,
+                          })
+                        }
+                      />
+                    )}
                     {uniq === id && loading && temp !== undefined ? (
                       <IconButton>
                         <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />

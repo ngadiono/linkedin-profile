@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -21,6 +22,7 @@ import { LANGUAGES } from '@/constants';
 const limitData: number = 4;
 
 const Language: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -37,11 +39,15 @@ const Language: React.FC = () => {
         redirect="languages"
       >
         <CardHeader title="Languages">
-          <BtnAction title={LANGUAGES} type="add" onClick={handleDialog} />
-          {profile?.languages.length > 0 && (
-            <Link href="/profile/details/languages">
-              <BtnAction title={LANGUAGES} type="edit" />
-            </Link>
+          {user && (
+            <>
+              <BtnAction title={LANGUAGES} type="add" onClick={handleDialog} />
+              {profile?.languages.length > 0 && (
+                <Link href="/profile/details/languages">
+                  <BtnAction title={LANGUAGES} type="edit" />
+                </Link>
+              )}
+            </>
           )}
         </CardHeader>
         {profile?.languages.length > 0 && (

@@ -7,23 +7,24 @@ import Container from '@/layouts/landing/container/Container';
 import { NextPageWithLayout } from '../../_app';
 
 // Components
-import LanguageDetail from '@/page/profile/language/LanguageDetail';
+import Profile from '@/page/profile/Profile';
 
-const LanguagesPage: NextPageWithLayout = () => {
+const ProfilePage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Languages | John Doe | LinkedIn</title>
+        <title>John Doe | LinkedIn</title>
       </Head>
-      <LanguageDetail />
+      <Profile />
     </>
   );
 };
 
-LanguagesPage.getLayout = function getLayout(page: ReactElement) {
+ProfilePage.getLayout = function getLayout(page: ReactElement) {
   return <Container>{page}</Container>;
 };
 
-LanguagesPage.requireAuth = true;
+// Enable protected page
+// ProfilePage.requireAuth = true;
 
-export default LanguagesPage;
+export default ProfilePage;

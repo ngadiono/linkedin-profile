@@ -9,6 +9,7 @@ import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import IconButton from '@mui/material/IconButton';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import About from './about/About';
 import Education from './education/Education';
 import Experience from './experience/Experience';
@@ -38,6 +39,7 @@ import { CardProfile, HeroImage, ProfileImage, ProfileDesc } from './Profile.sty
 import { INTRO } from '@/constants';
 
 const Profile: React.FC = () => {
+  const { user } = useAuth();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const { id, firstName, lastName, headline, age, avatar } = profile ?? {};
@@ -120,21 +122,25 @@ const Profile: React.FC = () => {
         <Box sx={{ marginTop: 'auto' }}>
           {profile && (
             <>
-              <ImageUploading
-                value={images}
-                onChange={handleUploadImage}
-                maxNumber={maxNumber}
-                dataURLKey="data_url"
-              >
-                {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => (
-                  <ProfileImage
-                    onClick={onImageUpload}
-                    alt={firstName}
-                    src={imageList.length > 0 ? imageList[0]['data_url'] : avatar}
-                    sx={{ cursor: 'pointer' }}
-                  />
-                )}
-              </ImageUploading>
+              {user ? (
+                <ImageUploading
+                  value={images}
+                  onChange={handleUploadImage}
+                  maxNumber={maxNumber}
+                  dataURLKey="data_url"
+                >
+                  {({ imageList, onImageUpload, onImageUpdate, onImageRemove }) => (
+                    <ProfileImage
+                      onClick={onImageUpload}
+                      alt={firstName}
+                      src={imageList.length > 0 ? imageList[0]['data_url'] : avatar}
+                      sx={{ cursor: 'pointer' }}
+                    />
+                  )}
+                </ImageUploading>
+              ) : (
+                <ProfileImage alt={firstName} src={avatar} />
+              )}
               <ProfileDesc>
                 <div>
                   <Typography variant="h5" gutterBottom>
@@ -147,37 +153,41 @@ const Profile: React.FC = () => {
                     {age} Years old
                   </Typography>
                 </div>
-                {profile.temp === undefined ? (
-                  <div>
-                    <BtnAction title={INTRO} type="edit" onClick={handleDialog} />
-                  </div>
-                ) : (
+                {user && (
                   <>
-                    {loading && profile.temp !== undefined ? (
+                    {profile.temp === undefined ? (
                       <div>
-                        <IconButton>
-                          <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />
-                        </IconButton>
+                        <BtnAction title={INTRO} type="edit" onClick={handleDialog} />
                       </div>
                     ) : (
                       <>
-                        {profile.temp !== undefined && (
+                        {loading && profile.temp !== undefined ? (
                           <div>
-                            <BtnAction
-                              title={INTRO}
-                              type="sync"
-                              onClick={() =>
-                                handleSync({
-                                  id,
-                                  firstName,
-                                  lastName,
-                                  headline,
-                                  age,
-                                  avatar,
-                                })
-                              }
-                            />
+                            <IconButton>
+                              <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />
+                            </IconButton>
                           </div>
+                        ) : (
+                          <>
+                            {profile.temp !== undefined && (
+                              <div>
+                                <BtnAction
+                                  title={INTRO}
+                                  type="sync"
+                                  onClick={() =>
+                                    handleSync({
+                                      id,
+                                      firstName,
+                                      lastName,
+                                      headline,
+                                      age,
+                                      avatar,
+                                    })
+                                  }
+                                />
+                              </div>
+                            )}
+                          </>
                         )}
                       </>
                     )}

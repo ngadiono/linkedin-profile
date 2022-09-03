@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 // Layouts
 import Container from '@/layouts/landing/container/Container';
-import { NextPageWithLayout } from '../../_app';
+import { NextPageWithLayout } from '../../../_app';
 
 // Components
 import SkillDetail from '@/page/profile/skill/SkillDetail';
@@ -24,6 +24,7 @@ SkillsPage.getLayout = function getLayout(page: ReactElement) {
   return <Container>{page}</Container>;
 };
 
-SkillsPage.requireAuth = true;
+// Enable protected page
+// SkillsPage.requireAuth = true;
 
 export default SkillsPage;

@@ -7,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -22,6 +23,7 @@ import { SKILLS } from '@/constants';
 const limitData: number = 4;
 
 const Skill: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -38,11 +40,15 @@ const Skill: React.FC = () => {
         redirect="skills"
       >
         <CardHeader title="Skills">
-          <BtnAction title={SKILLS} type="add" onClick={handleDialog} />
-          {profile?.skills.length > 0 && (
-            <Link href="/profile/details/skills">
-              <BtnAction title={SKILLS} type="edit" />
-            </Link>
+          {user && (
+            <>
+              <BtnAction title={SKILLS} type="add" onClick={handleDialog} />
+              {profile?.skills.length > 0 && (
+                <Link href="/profile/details/skills">
+                  <BtnAction title={SKILLS} type="edit" />
+                </Link>
+              )}
+            </>
           )}
         </CardHeader>
         {profile?.skills.length > 0 && (

@@ -7,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import GroupIcon from '@mui/icons-material/Group';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -18,12 +19,13 @@ import { useAppSelector } from '@/hooks/useReactRedux';
 import { SKILLS } from '@/constants';
 
 const SkillDetail: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.skills.length === 0}>
       <CardHeader title={SKILLS} back>
-        <BtnAction title={SKILLS} type="add" />
+        {user && <BtnAction title={SKILLS} type="add" />}
       </CardHeader>
       {profile?.skills.length > 0 && (
         <List component="div">

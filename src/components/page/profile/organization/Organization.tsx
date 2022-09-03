@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -21,6 +22,7 @@ import { ORGANIZATIONS } from '@/constants';
 const limitData: number = 4;
 
 const Organization: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
 
@@ -37,11 +39,15 @@ const Organization: React.FC = () => {
         redirect="organizations"
       >
         <CardHeader title="Organizations">
-          <BtnAction title={ORGANIZATIONS} type="add" onClick={handleDialog} />
-          {profile?.organizations.length > 0 && (
-            <Link href="/profile/details/organizations">
-              <BtnAction title={ORGANIZATIONS} type="edit" />
-            </Link>
+          {user && (
+            <>
+              <BtnAction title={ORGANIZATIONS} type="add" onClick={handleDialog} />
+              {profile?.organizations.length > 0 && (
+                <Link href="/profile/details/organizations">
+                  <BtnAction title={ORGANIZATIONS} type="edit" />
+                </Link>
+              )}
+            </>
           )}
         </CardHeader>
         {profile?.organizations.length > 0 && (

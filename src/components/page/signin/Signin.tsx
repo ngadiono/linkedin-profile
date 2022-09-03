@@ -78,7 +78,7 @@ const Signin: React.FC = () => {
           router.push(redirect); // go to page which redirected to login
           clearRedirect();
         } else {
-          router.push('/profile'); // go to default protected page
+          router.push(`in/${user.username}`); // go to default protected page
         }
       }
     }

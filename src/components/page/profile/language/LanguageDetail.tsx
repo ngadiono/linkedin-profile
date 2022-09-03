@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -17,12 +18,13 @@ import { useAppSelector } from '@/hooks/useReactRedux';
 import { LANGUAGES } from '@/constants';
 
 const LanguageDetail: React.FC = () => {
+  const { user } = useAuth();
   const profile = useAppSelector((state) => state.module.profile.detail);
 
   return (
     <CardSection empty={profile?.languages.length === 0}>
       <CardHeader title={LANGUAGES} back>
-        <BtnAction title={LANGUAGES} type="add" />
+        {user && <BtnAction title={LANGUAGES} type="add" />}
       </CardHeader>
       {profile?.languages.length > 0 && (
         <List component="div">

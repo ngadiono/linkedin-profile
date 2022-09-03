@@ -7,6 +7,7 @@ import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import IconButton from '@mui/material/IconButton';
 
 // Components
+import { useAuth } from '@/common/auth/AuthProvider';
 import CardHeader from '@/common/cardheader/CardHeader';
 import CardSection from '@/common/cardsection/CardSection';
 import BtnAction from '@/common/btnaction/BtnAction';
@@ -22,6 +23,7 @@ import { profileDetailUpdate } from '@/store/module/profile/profileSlice';
 import { ABOUT } from '@/constants';
 
 const About: React.FC = () => {
+  const { user } = useAuth();
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -61,18 +63,26 @@ const About: React.FC = () => {
     <>
       <CardSection showMore={false}>
         <CardHeader title={ABOUT}>
-          {profile?.temp === undefined ? (
-            <BtnAction title={ABOUT} type={profile?.about !== '' ? 'edit' : 'add'} onClick={handleDialog} />
-          ) : (
+          {user && (
             <>
-              {loading && profile?.temp !== undefined ? (
-                <IconButton>
-                  <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />
-                </IconButton>
+              {profile?.temp === undefined ? (
+                <BtnAction
+                  title={ABOUT}
+                  type={profile?.about !== '' ? 'edit' : 'add'}
+                  onClick={handleDialog}
+                />
               ) : (
                 <>
-                  {profile?.temp !== undefined && (
-                    <BtnAction title={ABOUT} type="sync" onClick={() => handleSync(profile.about)} />
+                  {loading && profile?.temp !== undefined ? (
+                    <IconButton>
+                      <HourglassBottomIcon sx={{ color: '#ffffffe6' }} />
+                    </IconButton>
+                  ) : (
+                    <>
+                      {profile?.temp !== undefined && (
+                        <BtnAction title={ABOUT} type="sync" onClick={() => handleSync(profile.about)} />
+                      )}
+                    </>
                   )}
                 </>
               )}

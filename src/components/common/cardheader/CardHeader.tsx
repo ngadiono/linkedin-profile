@@ -19,7 +19,7 @@ const CardHeader: React.FC<Props> = ({ title, children, back = false }) => {
     <>
       <Wrapper>
         {back && (
-          <Link href="/profile">
+          <Link href="/in/johndoe">
             <IconButton sx={{ marginRight: '10px' }}>
               <ArrowBackIcon sx={{ color: '#ffffffe6' }} />
             </IconButton>
